@@ -1,0 +1,15 @@
+{
+  "npmScope": "valueadd",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "common": {
+      "tags": ["scope:shared", "type:utility", "platform:desktop"]
+    }
+  }
+}
