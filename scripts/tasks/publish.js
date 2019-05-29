@@ -1,5 +1,5 @@
-const { version } = require('../package.json');
-const { projects } = require('../angular');
+const { version } = require('../../package.json');
+const { projects } = require('../../angular');
 const { exec } = require('child_process');
 const path = require('path');
 const fs = require('fs');
