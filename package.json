@@ -26,8 +26,10 @@
     "workspace-schematic": "./node_modules/.bin/nx workspace-schematic",
     "dep-graph": "./node_modules/.bin/nx dep-graph",
     "help": "./node_modules/.bin/nx help",
-    "publish:latest": "node scripts/publish.js",
-    "prepare:release": "./node_modules/.bin/standard-version"
+    "publish:latest": "node scripts/tasks/publish.js",
+    "release:prepare": "git checkout master && git pull --tags origin master && ./node_modules/.bin/standard-version && npm run build:all",
+    "release:push": "git push --follow-tags origin master --no-verify",
+    "validate": "node ./scripts/tasks/validate-commit-message.js"
   },
   "private": true,
   "dependencies": {
@@ -71,6 +73,8 @@
     "tsickle": ">=0.34.0",
     "tslib": "^1.9.0",
     "tslint": "~5.11.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-sonarts": "^1.9.0",
     "typescript": "~3.2.4"
   }
 }

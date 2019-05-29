@@ -4,6 +4,6 @@
     "pre-commit": "lint-staged",
     "pre-push": "node -e \"console.log('Checking with prettier if files are correctly formatted. Errors will be listed below.')\" \
     && prettier libs/**/*.{json,css,scss,js,ts,html} --list-different \
-    && npm run affected:lint -- --base=master --head=HEAD"
+    && npm run affected:lint -- --base=develop --head=HEAD"
   }
 }
