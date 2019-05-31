@@ -1,5 +1,5 @@
 export class EntityNotFoundError extends Error {
-  constructor(id: string, collection: string) {
+  constructor(id: string | number, collection: string) {
     super(`Entity with id '${id}' not found in collection '${collection}.'`);
     this.name = 'EntityNotFoundError';
     Object.setPrototypeOf(this, EntityNotFoundError.prototype);

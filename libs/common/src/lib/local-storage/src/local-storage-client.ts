@@ -5,10 +5,13 @@ export class LocalStorageClient {
   /**
    * Get the entity from the collection by ID.
    * @param {string} collection The name of the collection in which to search for the entity.
-   * @param {string} id Entity ID.
+   * @param {string | number} id Entity ID.
    * @throws {EntityNotFoundError}
    */
-  static get<T extends { id: string }>(collection: string, id: string): Observable<T> {
+  static get<T extends { id: string | number }>(
+    collection: string,
+    id: string | number
+  ): Observable<T> {
     const entities = LocalStorageClient.getCollection(collection);
     const found = entities.find(entity => entity.id === id);
 
@@ -23,16 +26,16 @@ export class LocalStorageClient {
    * Get all entities from a given collection.
    * @param {string} collection The name of the collection from which to fetch all entities.
    */
-  static getAll<T extends { id: string }>(collection: string): Observable<T[]> {
+  static getAll<T extends { id: string | number }>(collection: string): Observable<T[]> {
     return of(LocalStorageClient.getCollection(collection));
   }
 
   /**
    * Remove the entity from the given collection by ID.
    * @param {string} collection The name of the collection from which to remove the entity.
-   * @param {string} id Entity ID.
+   * @param {string | number} id Entity ID.
    */
-  static remove(collection: string, id: string): Observable<void> {
+  static remove(collection: string, id: string | number): Observable<void> {
     const entities = LocalStorageClient.getCollection(collection);
     LocalStorageClient.setCollection(collection, entities.filter(entity => entity.id !== id));
 
@@ -45,7 +48,7 @@ export class LocalStorageClient {
    * @param {T} entity Entity to save.
    * @throws {NoEntityIdError}
    */
-  static save<T extends { id: string }>(collection: string, entity: T): Observable<T> {
+  static save<T extends { id: string | number }>(collection: string, entity: T): Observable<T> {
     if (!entity.id) {
       throw new NoEntityIdError();
     }
@@ -69,7 +72,7 @@ export class LocalStorageClient {
    * @throws {NoEntityIdError}
    * @throws {EntityNotFoundError}
    */
-  static update<T extends { id: string }>(
+  static update<T extends { id: string | number }>(
     collection: string,
     entity: Partial<T>,
     merge = false
