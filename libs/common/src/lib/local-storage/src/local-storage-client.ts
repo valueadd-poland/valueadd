@@ -1,4 +1,4 @@
-import { EMPTY, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { EntityNotFoundError, NoEntityIdError } from './errors';
 
 export class LocalStorageClient {
@@ -35,11 +35,11 @@ export class LocalStorageClient {
    * @param {string} collection The name of the collection from which to remove the entity.
    * @param {string | number} id Entity ID.
    */
-  static remove(collection: string, id: string | number): Observable<void> {
+  static remove(collection: string, id: string | number): Observable<null> {
     const entities = LocalStorageClient.getCollection(collection);
     LocalStorageClient.setCollection(collection, entities.filter(entity => entity.id !== id));
 
-    return EMPTY;
+    return of(null);
   }
 
   /**
