@@ -53,8 +53,28 @@
         "allow": [],
         "depConstraints": [
           {
-            "sourceTag": "*",
-            "onlyDependOnLibsWithTags": ["*"]
+            "sourceTag": "scope:shared",
+            "onlyDependOnLibsWithTags": ["scope:shared"]
+          },
+          {
+            "sourceTag": "platform:desktop",
+            "onlyDependOnLibsWithTags": ["platform:desktop"]
+          },
+          {
+            "sourceTag": "type:util",
+            "onlyDependOnLibsWithTags": ["type:util"]
+          },
+          {
+            "sourceTag": "type:ui",
+            "onlyDependOnLibsWithTags": ["type:ui", "type:util"]
+          },
+          {
+            "sourceTag": "scope:common",
+            "onlyDependOnLibsWithTags": ["scope:shared", "scope:common"]
+          },
+          {
+            "sourceTag": "scope:testing",
+            "onlyDependOnLibsWithTags": ["scope:shared", "scope:testing"]
           }
         ]
       }
