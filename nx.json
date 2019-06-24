@@ -9,7 +9,10 @@
   },
   "projects": {
     "common": {
-      "tags": ["scope:shared", "type:utility", "platform:desktop"]
+      "tags": ["scope:common", "type:feature", "platform:desktop"]
+    },
+    "testing": {
+      "tags": ["scope:testing", "type:feature", "platform: desktop"]
     }
   }
 }

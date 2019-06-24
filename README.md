@@ -5,6 +5,8 @@ This repository contains a set of libraries and tools for developing frontend ap
 ## Packages
 
 * [Local storage](https://github.com/valueadd-poland/valueadd/tree/master/libs/common/src/lib/local-storage) - local storage client for simple crud operations.  
+* [Testing utilities](https://github.com/valueadd-poland/valueadd/tree/master/libs/testing) - testing utilities.  
+
 
 ## Releasing & publishing
 
