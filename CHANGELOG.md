@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://priv.github.com/valueadd-poland/valueadd/compare/v1.0.0...v1.1.0) (2019-06-25)
+
+
+### Features
+
+* **validation-messages:** add validation messages library ([47d415b](https://priv.github.com/valueadd-poland/valueadd/commit/47d415b))
+
+
+
 ## [1.0.0](https://priv.github.com/valueadd-poland/valueadd/compare/v0.1.1...v1.0.0) (2019-06-24)
 
 
