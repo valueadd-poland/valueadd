@@ -1,0 +1,16 @@
+{
+  "name": "@valueadd/validation-messages",
+  "description": "Lib to handle validation messages in Angular.",
+  "homepage": "https://github.com/valueadd-poland/valueadd/tree/master/libs/validation-messages",
+  "author": "ValueAdd sp. z o.o",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valueadd-poland/valueadd.git"
+  },
+  "bugs": {
+    "url": "https://github.com/valueadd-poland/valueadd/issues"
+  },
+  "peerDependencies": {},
+  "scripts": {}
+}
