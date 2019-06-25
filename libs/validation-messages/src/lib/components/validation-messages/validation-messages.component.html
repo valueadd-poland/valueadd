@@ -1,0 +1,8 @@
+<ng-container *ngIf="materialErrorMatcher || (control && (control.dirty || control.touched))">
+  <div *ngFor="let errorMessage of errorMessages">{{ errorMessage }}</div>
+</ng-container>
+<ng-container *ngIf="showServerErrors && parsedApiErrorMessages.length">
+  <div *ngFor="let errorMessage of parsedApiErrorMessages">
+    {{ errorMessage }}
+  </div>
+</ng-container>

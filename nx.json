@@ -13,6 +13,9 @@
     },
     "testing": {
       "tags": ["scope:testing", "type:feature", "platform: desktop"]
+    },
+    "validation-messages": {
+      "tags": ["scope:validation-messages", "type:feature", "platform: desktop"]
     }
   }
 }

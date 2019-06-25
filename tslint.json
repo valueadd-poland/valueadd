@@ -75,6 +75,10 @@
           {
             "sourceTag": "scope:testing",
             "onlyDependOnLibsWithTags": ["scope:shared", "scope:testing"]
+          },
+          {
+            "sourceTag": "scope:validation-messages",
+            "onlyDependOnLibsWithTags": ["scope:shared", "scope:validation-messages"]
           }
         ]
       }
