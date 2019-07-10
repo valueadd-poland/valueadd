@@ -16,6 +16,9 @@
     },
     "validation-messages": {
       "tags": ["scope:validation-messages", "type:feature", "platform: desktop"]
+    },
+    "utils": {
+      "tags": ["scope:shared", "type:util"]
     }
   }
 }
