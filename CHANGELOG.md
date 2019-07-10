@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://patryk.zielinski93.github.com/valueadd-poland/valueadd/compare/v0.1.1...v1.2.0) (2019-07-10)
+
+
+### Features
+
+* **testing:** move testing from common to library ([7b1fb09](https://patryk.zielinski93.github.com/valueadd-poland/valueadd/commit/7b1fb09))
+* **utils:** add utils library ([31d5df4](https://patryk.zielinski93.github.com/valueadd-poland/valueadd/commit/31d5df4))
+* **validation-messages:** add validation messages library ([47d415b](https://patryk.zielinski93.github.com/valueadd-poland/valueadd/commit/47d415b))
+
+
+### BREAKING CHANGES
+
+* **testing:** move testing from common to library
+
+
+
 ## [1.1.0](https://priv.github.com/valueadd-poland/valueadd/compare/v1.0.0...v1.1.0) (2019-06-25)
 
 
