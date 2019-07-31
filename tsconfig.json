@@ -19,7 +19,8 @@
       "@valueadd/common/local-storage": ["libs/common/src/lib/local-storage/index.ts"],
       "@valueadd/testing": ["libs/testing/src/index.ts"],
       "@valueadd/validation-messages": ["libs/validation-messages/src/index.ts"],
-      "@valueadd/utils": ["libs/utils/src/index.ts"]
+      "@valueadd/utils": ["libs/utils/src/index.ts"],
+      "@valueadd/typed-urls": ["libs/typed-urls/src/index.ts"]
     },
     "rootDir": "."
   },
