@@ -145,6 +145,41 @@
           "styleext": "scss"
         }
       }
+    },
+    "typed-urls": {
+      "root": "libs/typed-urls",
+      "sourceRoot": "libs/typed-urls/src",
+      "projectType": "library",
+      "prefix": "valueadd",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/typed-urls/tsconfig.lib.json",
+            "project": "libs/typed-urls/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/typed-urls/tsconfig.lib.json", "libs/typed-urls/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/typed-urls/src/test.ts",
+            "tsConfig": "libs/typed-urls/tsconfig.spec.json",
+            "karmaConfig": "libs/typed-urls/karma.conf.js"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {
