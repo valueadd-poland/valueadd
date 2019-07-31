@@ -1,5 +1,5 @@
 {
   "maxLength": 120,
   "types": ["build", "ci", "docs", "feat", "fix", "perf", "refactor", "chore", "style", "test"],
-  "scopes": ["common", "testing", "core", "release", "validation-messages", "utils"]
+  "scopes": ["common", "testing", "core", "release", "validation-messages", "utils", "typed-urls"]
 }
