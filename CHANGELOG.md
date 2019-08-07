@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://patryk.zielinski93.github.com/valueadd-poland/valueadd/compare/v1.2.0...v2.0.0) (2019-08-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* new versions of nx and angular are required now
+
+### build
+
+* upgrade packages ([01912b3](https://patryk.zielinski93.github.com/valueadd-poland/valueadd/commit/01912b3)), closes [#NV-20](https://patryk.zielinski93.github.com/valueadd-poland/valueadd/issues/NV-20)
+
 ## [1.2.0](https://patryk.zielinski93.github.com/valueadd-poland/valueadd/compare/v0.1.1...v1.2.0) (2019-07-10)
 
 
