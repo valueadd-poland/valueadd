@@ -7,7 +7,7 @@
       "root": "libs/common",
       "sourceRoot": "libs/common/src",
       "projectType": "library",
-      "prefix": "valueadd",
+      "prefix": "va",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -42,7 +42,7 @@
       "root": "libs/testing",
       "sourceRoot": "libs/testing/src",
       "projectType": "library",
-      "prefix": "valueadd",
+      "prefix": "va",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -77,7 +77,7 @@
       "root": "libs/validation-messages",
       "sourceRoot": "libs/validation-messages/src",
       "projectType": "library",
-      "prefix": "valueadd",
+      "prefix": "va",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -115,7 +115,7 @@
       "root": "libs/utils",
       "sourceRoot": "libs/utils/src",
       "projectType": "library",
-      "prefix": "valueadd",
+      "prefix": "va",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -152,7 +152,7 @@
       "typescriptMismatch": false,
       "versionMismatch": false
     },
-    "defaultCollection": "@nrwl/schematics"
+    "defaultCollection": "@nrwl/angular"
   },
   "schematics": {
     "@nrwl/schematics:application": {

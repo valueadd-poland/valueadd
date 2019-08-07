@@ -6,7 +6,7 @@ import { ApiErrorMessage } from '../../resources/interfaces';
 import { ValidationMessagesService } from '../../services';
 
 @Component({
-  selector: 'ng-validation-messages',
+  selector: 'va-validation-messages',
   templateUrl: './validation-messages.component.html'
 })
 export class ValidationMessagesComponent implements OnDestroy, DoCheck {
