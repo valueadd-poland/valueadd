@@ -1,7 +1,7 @@
 /**
- * @param {string} str
- * @param {Object} params
- * @returns {string} Interpolation of the path with the parameters.
+ * @param str
+ * @param params
+ * @returns Interpolation of the path with the parameters.
  */
 export function interpolate(str: string, params = {}): string {
   const paramsCopy = { ...params };
