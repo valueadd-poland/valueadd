@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://priv.github.com/valueadd-poland/valueadd/compare/v2.0.0...v2.1.0) (2019-08-30)
+
+
+### Features
+
+* **typed-urls:** add typed-urls library ([4ecd47c](https://priv.github.com/valueadd-poland/valueadd/commit/4ecd47c))
+
 ## [2.0.0](https://patryk.zielinski93.github.com/valueadd-poland/valueadd/compare/v1.2.0...v2.0.0) (2019-08-07)
 
 
