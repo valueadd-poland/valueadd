@@ -19,6 +19,9 @@
     },
     "utils": {
       "tags": ["scope:shared", "type:util"]
+    },
+    "typed-urls": {
+      "tags": ["scope:typed-urls", "type:feature", "platform:desktop"]
     }
   }
 }
