@@ -188,7 +188,7 @@
       "prefix": "valueadd",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "./libs/devkit/builders/build-ng-packagr-and-schematics:build",
           "options": {
             "tsConfig": "libs/linking-tool/tsconfig.lib.json",
             "project": "libs/linking-tool/ng-package.json"
@@ -216,6 +216,35 @@
       "schematics": {
         "@nrwl/angular:component": {
           "styleext": "scss"
+        }
+      }
+    },
+    "devkit-builders-build-ng-packagr-and-schematics": {
+      "root": "libs/devkit/builders/build-ng-packagr-and-schematics",
+      "sourceRoot": "libs/devkit/builders/build-ng-packagr-and-schematics/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "tslint",
+            "tsConfig": [
+              "libs/devkit/builders/build-ng-packagr-and-schematics/tsconfig.lib.json",
+              "libs/devkit/builders/build-ng-packagr-and-schematics/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/devkit/builders/build-ng-packagr-and-schematics/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/devkit/builders/build-ng-packagr-and-schematics/jest.config.js",
+            "tsConfig": "libs/devkit/builders/build-ng-packagr-and-schematics/tsconfig.spec.json"
+          }
         }
       }
     }

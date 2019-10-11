@@ -1,0 +1,32 @@
+{
+  "name": "@valueadd-devkit/build-ng-packagr-and-schematics",
+  "version": "0.0.0",
+  "description": "ng-packagr builder with support for schematics inside library",
+  "experimental": true,
+  "main": "src/index.js",
+  "typings": "src/index.d.ts",
+  "builders": "./builders.json",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/valueadd-poland/valueadd/tree/master/libs/devkit/builders/build-ng-packagr-and-schematics"
+  },
+  "author": "ValueAdd sp. z o.o",
+  "license": "MIT",
+  "dependencies": {
+    "@angular-devkit/architect": "0.0.0",
+    "rxjs": "6.5.3"
+  },
+  "peerDependencies": {
+    "ng-packagr": "^4.0.0 || ^5.0.0"
+  },
+  "devDependencies": {
+    "@angular/compiler": "9.0.0-next.10",
+    "@angular/compiler-cli": "9.0.0-next.10",
+    "@angular-devkit/core": "0.0.0",
+    "ng-packagr": "~5.6.0",
+    "tslib": "^1.10.0"
+  }
+}

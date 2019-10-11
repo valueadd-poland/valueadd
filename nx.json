@@ -25,6 +25,9 @@
     },
     "linking-tool": {
       "tags": ["scope:linking-tool", "type:feature", "platform:desktop"]
+    },
+    "devkit-builders-build-ng-packagr-and-schematics": {
+      "tags": ["scope:builders", "type:feature", "platform:desktop"]
     }
   }
 }
