@@ -1,8 +1,9 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LinkService } from './runtime';
-import { linkServiceFactory } from './runtime/link/link.service.factory';
-import { LinksMap, LinkType } from './resources';
+import { LinkService } from './link/link.service';
+import { linkServiceFactory } from './link/link.service.factory';
+import { LinksMap } from './resources/models';
+import { LinkType } from './resources/enums';
 
 @NgModule({
   imports: [CommonModule]
@@ -14,8 +15,7 @@ export class LinkingToolModule {
       providers: [
         {
           provide: LinkService,
-          useFactory: linkServiceFactory,
-          deps: [linksMap, linkTypeEnum]
+          useValue: linkServiceFactory(linksMap, linkTypeEnum)
         }
       ]
     };

@@ -1,6 +1,6 @@
 {
   "name": "@valueadd/linking-tool",
-  "schematics": "./lib/collection.json",
+  "schematics": "./lib/schematics/collection.json",
   "description": "Generate links for routing across the app",
   "homepage": "https://github.com/valueadd-poland/valueadd/tree/master/libs/linking-tool",
   "author": "ValueAdd sp. z o.o",
@@ -15,6 +15,7 @@
   "keywords": [
     "schematics",
     "routing",
+    "linking tool",
     "generate links"
   ],
   "peerDependencies": {},
