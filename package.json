@@ -8,7 +8,7 @@
     "build": "ng build",
     "build:all": "npm run affected:build -- --all",
     "linking-tool:build-and-copy": "npm run linking-tool:build && npm run linking-tool:copy",
-    "linking-tool:build": "rm -rf dist/libs/linking-tool && mkdir dist/libs/linking-tool && tsc -p libs/linking-tool/tsconfig.json",
+    "linking-tool:build": "rm -rf dist/libs/linking-tool && mkdir -p dist/libs/linking-tool && tsc -p libs/linking-tool/tsconfig.json",
     "linking-tool:copy": "cp libs/linking-tool/package.json dist/libs/linking-tool && cp libs/linking-tool/src/lib/collection.json dist/libs/linking-tool/lib && cp libs/linking-tool/src/lib/schematics/schema.json dist/libs/linking-tool/lib/schematics",
     "test": "ng test",
     "lint": "./node_modules/.bin/nx lint && ng lint",
@@ -53,7 +53,6 @@
     "@angular/router": "^8.2.0",
     "core-js": "^2.6.9",
     "rxjs": "^6.5.2",
-    "tslib": "^1.9.0",
     "zone.js": "~0.10.1",
     "@nrwl/angular": "^8.4.4"
   },

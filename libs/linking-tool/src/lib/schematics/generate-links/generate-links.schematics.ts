@@ -1,11 +1,11 @@
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { Schema } from '../resources/interfaces/schema.interface';
-import { GenerateLinksService } from '../services/generate-links.service';
+import { GenerateLinksSchema } from './resources/interfaces/generate-links-schema.interface';
+import { GenerateLinksService } from './services/generate-links.service';
 
-export class Schematics {
-  static generateLinks(_options: Schema): Rule {
+export class GenerateLinksSchematics {
+  static run(_options: GenerateLinksSchema): Rule {
     return (tree: Tree, _context: SchematicContext) => {
-      const resultPath = Schematics.resolveResultPath(_options.resultPath);
+      const resultPath = GenerateLinksSchematics.resolveResultPath(_options.resultPath);
 
       if (tree.exists(resultPath)) {
         console.log('Removing old links map located in', resultPath);
