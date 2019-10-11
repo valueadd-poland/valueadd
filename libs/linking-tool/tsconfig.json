@@ -3,6 +3,8 @@
     "baseUrl": "tsconfig",
     "module": "commonjs",
     "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "rootDir": "src/",
     "sourceMap": true,
     "target": "es2015",
@@ -11,6 +13,6 @@
     "types": ["jasmine", "node"],
     "outDir": "../../dist/libs/linking-tool"
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "**/*.ts"],
   "exclude": ["../../node_modules", "../../tmp"]
 }

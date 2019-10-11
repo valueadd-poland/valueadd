@@ -1,19 +1,14 @@
 import { Injectable } from '@angular/core';
-import { NavigationExtras, Params } from '@angular/router';
-
-export interface RouterLink {
-  extras?: NavigationExtras;
-  path: any[];
-  query?: object;
-}
+import { Params } from '@angular/router';
+import { Link, LinksMap, RouterLink } from '../../resources/models';
+import { LinkType } from '../../resources/enums';
+import { utils } from '../../resources/utils';
 
 @Injectable()
 export class LinkService {
-  // @TODO: json importing issue. With current import file is imported as Module, otherwise IDE shows errors.
-  // This needs further investigation.
-  static readonly links = linksMap;
+  constructor(private readonly linksMap: LinksMap, private readonly linkType = LinkType) {}
 
-  static convertParamsToQueryParamsString(params: Params): string {
+  convertParamsToQueryParamsString(params: Params): string {
     let result = '?';
     Object.keys(params).forEach((key: string) => {
       result += `${key}=${params[key]}&`;
@@ -22,47 +17,47 @@ export class LinkService {
     return result.slice(0, -1);
   }
 
-  static generateExternalUrlLink(url: string): Link {
+  generateExternalUrlLink(url: string): Link {
     return {
-      type: LinkType.externalUrl,
+      type: this.linkType.externalUrl,
       params: {
         url
       }
     };
   }
 
-  static resolveLinkUrl(link: Link): string {
+  resolveLinkUrl(link: Link): string {
     let url = null;
     if (link.type === LinkType.externalUrl) {
-      return Utils.hasProtocolOrIsProtocolRelative(link.params.url)
+      return utils.hasProtocolOrIsProtocolRelative(link.params.url)
         ? link.params.url
         : '//' + link.params.url;
-    } else if (LinkUtilService.links[link.type]) {
-      url = LinkUtilService.links[link.type];
+    } else if (this.linksMap[link.type]) {
+      url = this.linksMap[link.type];
     } else if (link.path) {
       url = link.path;
     }
     if (link.params) {
-      url = Utils.interpolate(url, link.params);
+      url = utils.interpolate(url, link.params);
       if (link.params.anchor) {
         url += '#' + link.params.anchor;
       }
       if (link.params.queryParams) {
-        url += LinkUtilService.convertParamsToQueryParamsString(link.params.queryParams);
+        url += this.convertParamsToQueryParamsString(link.params.queryParams);
       }
     }
     return url || '#';
   }
 
-  static resolveRouterLink(link: Link): RouterLink {
-    return LinkUtilService.links[link.type] ? LinkUtilService.getRouterLink(link) : { path: ['#'] };
+  resolveRouterLink(link: Link): RouterLink {
+    return this.linksMap[link.type] ? this.getRouterLink(link) : { path: ['#'] };
   }
 
-  private static getRouterLink(link: Link): RouterLink {
-    let result: RouterLink = { path: [LinkUtilService.links[link.type]] };
+  private getRouterLink(link: Link): RouterLink {
+    let result: RouterLink = { path: [this.linksMap[link.type]] };
 
     if (link.params) {
-      result = { path: [Utils.interpolate(LinkUtilService.links[link.type], link.params)] };
+      result = { path: [utils.interpolate(this.linksMap[link.type], link.params)] };
 
       if (link.params.anchor) {
         result.extras = {};
