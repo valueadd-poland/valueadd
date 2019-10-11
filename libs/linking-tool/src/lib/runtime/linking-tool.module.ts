@@ -1,21 +1,24 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { LinkService } from './link/link.service';
-import { linkServiceFactory } from './link/link.service.factory';
 import { LinksMap } from './resources/models';
 import { LinkType } from './resources/enums';
+import { LinkServiceBuilder } from './link/link.service.builder';
 
-@NgModule({
-  imports: [CommonModule]
-})
+@NgModule({})
 export class LinkingToolModule {
-  static forRoot(linksMap: LinksMap, linkTypeEnum = LinkType): ModuleWithProviders {
+  static forRoot(
+    linksMap: LinksMap,
+    linkType: typeof LinkType = LinkType
+  ): ModuleWithProviders<LinkingToolModule> {
     return {
       ngModule: LinkingToolModule,
       providers: [
         {
           provide: LinkService,
-          useValue: linkServiceFactory(linksMap, linkTypeEnum)
+          useValue: new LinkServiceBuilder()
+            .setLinksMap(linksMap)
+            .setLinkType(linkType)
+            .build()
         }
       ]
     };

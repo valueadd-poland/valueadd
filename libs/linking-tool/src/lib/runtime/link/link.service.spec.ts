@@ -2,8 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { LinkService } from './link.service';
 import { LinkingToolModule } from '../linking-tool.module';
-import { LinksMap } from '../resources/models';
-import { LinkType } from '../resources/enums';
+import { LinksMap, LinkType } from '../resources';
 
 describe('LinkService', () => {
   const linksMap: LinksMap = { test: 'test' };

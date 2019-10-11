@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import { Link, LinksMap, RouterLink } from '../../resources/models';
-import { LinkType } from '../../resources/enums';
-import { utils } from '../../resources/utils';
+import { Link, LinksMap, LinkType, RouterLink, utils } from '../resources';
 
 @Injectable()
 export class LinkService {
-  constructor(private readonly linksMap: LinksMap, private readonly linkType = LinkType) {}
+  private linksMap: LinksMap;
+  private linkType: typeof LinkType;
 
   convertParamsToQueryParamsString(params: Params): string {
     let result = '?';
@@ -24,6 +23,11 @@ export class LinkService {
         url
       }
     };
+  }
+
+  init(linksMap: LinksMap, linkType: typeof LinkType): void {
+    this.linksMap = linksMap;
+    this.linkType = linkType;
   }
 
   resolveLinkUrl(link: Link): string {
