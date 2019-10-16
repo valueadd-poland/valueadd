@@ -2,6 +2,7 @@ import { BuilderContext, BuilderOutput, createBuilder } from '@angular-devkit/ar
 import { resolve } from 'path';
 import { Observable, from } from 'rxjs';
 import { mapTo, switchMap } from 'rxjs/operators';
+// @ts-ignore
 import { Schema as NgPackagrBuilderOptions } from './schema';
 
 async function initialize(

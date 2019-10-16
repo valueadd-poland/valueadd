@@ -9,7 +9,7 @@
     "build:all": "npm run affected:build -- --all",
     "linking-tool:build-and-copy": "npm run linking-tool:build && npm run linking-tool:copy",
     "linking-tool:build": "rm -rf dist/libs/linking-tool && mkdir -p dist/libs/linking-tool && tsc -p libs/linking-tool/tsconfig.json",
-    "linking-tool:copy": "cp libs/linking-tool/package.json dist/libs/linking-tool && cp libs/linking-tool/src/lib/collection.json dist/libs/linking-tool/lib && cp libs/linking-tool/src/lib/schematics/generate-links/schema.json dist/libs/linking-tool/lib/schematics",
+    "linking-tool:copy": "cp libs/linking-tool/package.json dist/libs/linking-tool/package.json && cp libs/linking-tool/src/lib/schematics/collection.json dist/libs/linking-tool/lib/schematics/collection.json && cp libs/linking-tool/src/lib/schematics/generate-links/schema.json dist/libs/linking-tool/lib/schematics/generate-links/schema.json",
     "test": "ng test",
     "lint": "./node_modules/.bin/nx lint && ng lint",
     "e2e": "ng e2e",
