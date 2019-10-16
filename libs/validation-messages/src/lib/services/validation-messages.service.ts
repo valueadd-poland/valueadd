@@ -3,7 +3,9 @@ import { angularValidatorsWithValueMap } from '../resources/consts';
 import { Memoize } from '../resources/decorators';
 import { Parser, ValidationMessage, ValidationMessagesConfig } from '../resources/interfaces';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ValidationMessagesService {
   private parser: Parser | null;
   private validationMessagesFinalConfig: ValidationMessagesConfig<ValidationMessage> = {};
