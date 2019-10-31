@@ -25,4 +25,15 @@ describe('InterpolatableUrl', () => {
       });
     });
   });
+
+  describe('fragment', () => {
+    it('should return NavigationExtras with provided params', () => {
+      const result = urlFactory<{
+        urlParams: 'id' | 'test';
+        fragment: 'someFragment';
+      }>('url/:id', true).fragment({ fragment: 'someFragment' });
+
+      expect(result.fragment).toEqual('#someFragment');
+    });
+  });
 });
