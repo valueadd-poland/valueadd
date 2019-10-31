@@ -6,6 +6,7 @@ import { Inject, Optional } from '@angular/core';
 import { ARRAY_FORMAT_TYPE } from '../tokens';
 import { ArrayFormatType } from '../enums';
 import { QueryUtil } from '../utils/query/query.util';
+import { FragmentUtil } from '../utils/fragment/fragment';
 
 export class InterpolatableUrl<T extends Params> {
   constructor(
@@ -14,6 +15,10 @@ export class InterpolatableUrl<T extends Params> {
     @Optional()
     private arrayFormatType: ArrayFormatType = ArrayFormatType.None
   ) {}
+
+  fragment(params: Record<'fragment', string>): NavigationExtras {
+    return FragmentUtil.fragment(params);
+  }
 
   url(params: Record<T['urlParams'], string>): string {
     return interpolate(this.apiUrl, params);
