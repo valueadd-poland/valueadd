@@ -1,7 +1,7 @@
 export class Url {
   constructor(private _url: string) {}
 
-  public url(): string {
+  url(): string {
     return this._url;
   }
 }

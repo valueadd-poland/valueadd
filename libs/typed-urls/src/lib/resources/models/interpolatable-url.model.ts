@@ -1,9 +1,16 @@
-import { interpolate } from '../utils/interpolate/interpolate';
+import { Params } from './params.model';
+import { QueryParam } from './query-param.model';
+import { interpolate } from '../utils/interpolate';
 
-export class InterpolatableUrl<T extends string> {
-  constructor(private _url: string) {}
+export class InterpolatableUrl<T extends Params> {
+  constructor(private apiUrl: string) {}
 
-  public url(params: Record<T, string | number>): string {
-    return interpolate(this._url, params);
+  url(
+    params: Record<T['urlParams'], string> &
+      Record<keyof Omit<T, 'urlParams' | 'queryParams'>, string> &
+      Record<keyof Omit<T, 'urlParams' | 'fragment'>, QueryParam[]>
+  ): string {
+    const urlParams: Record<T['urlParams'], string> = params;
+    return interpolate(this.apiUrl, urlParams);
   }
 }
