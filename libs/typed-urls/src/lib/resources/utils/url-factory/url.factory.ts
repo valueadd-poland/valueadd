@@ -11,21 +11,3 @@ export function urlFactory<T extends Params>(
 ): InterpolatableUrl<T> | Url {
   return interpolatable ? new InterpolatableUrl<T>(url) : new Url(url);
 }
-
-function test() {
-  const url = urlFactory<{
-    urlParams: 'id' | 'test';
-    fragment: 'someFragment';
-    queryParams: [
-      {
-        id: 'someId';
-        options: {
-          arrayFormat: 'none';
-        };
-        values: [];
-      }
-    ];
-  }>('url/:id', true).url({ id: 'test', test: 'test', fragment: 'someFragment', queryParams: [] });
-}
-
-test();

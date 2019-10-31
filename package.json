@@ -35,20 +35,21 @@
   "dependencies": {
     "@angular/animations": "^8.2.0",
     "@angular/cdk": "^8.1.2",
-    "@angular/material": "^8.1.2",
     "@angular/common": "^8.2.0",
-    "memoizee": "^0.4.14",
-    "lodash": "^4.17.15",
     "@angular/compiler": "^8.2.0",
     "@angular/core": "^8.2.0",
     "@angular/forms": "^8.2.0",
+    "@angular/material": "^8.1.2",
     "@angular/platform-browser": "^8.2.0",
     "@angular/platform-browser-dynamic": "^8.2.0",
     "@angular/router": "^8.2.0",
+    "@nrwl/angular": "^8.4.4",
     "core-js": "^2.6.9",
+    "lodash": "^4.17.15",
+    "memoizee": "^0.4.14",
+    "query-string": "^6.8.3",
     "rxjs": "^6.5.2",
-    "zone.js": "~0.10.1",
-    "@nrwl/angular": "^8.4.4"
+    "zone.js": "~0.10.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.802.0",

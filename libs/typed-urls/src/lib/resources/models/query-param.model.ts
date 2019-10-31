@@ -1,7 +1,7 @@
-import { Options } from '@valueadd/typed-urls';
+import { Options } from './options.model';
+import { QueryParamValues } from '../types';
 
 export interface QueryParam {
-  id: string;
-  options: Options;
-  values: (string | boolean | number)[];
+  options?: Options;
+  values: QueryParamValues;
 }
