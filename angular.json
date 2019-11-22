@@ -220,7 +220,7 @@
       }
     },
     "devkit-builders-build-ng-packagr-and-schematics": {
-      "root": "libs/devkit/builders/build-ng-packagr-and-schematics",
+      "root": "dist/libs/devkit/builders/build-ng-packagr-and-schematics",
       "sourceRoot": "libs/devkit/builders/build-ng-packagr-and-schematics/src",
       "projectType": "library",
       "schematics": {},

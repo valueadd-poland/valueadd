@@ -1,10 +1,10 @@
 {
-  "$schema": "../../../../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "$schema": "../../../../../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
     "generate-links": {
       "description": "Generate links map across all apps",
-      "factory": "../index#generateLinks",
-      "schema": "./schematics/schema.json"
+      "factory": "./index#generateLinks",
+      "schema": "./generate-links/schema.json"
     }
   }
 }
