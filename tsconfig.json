@@ -20,7 +20,8 @@
       "@valueadd/testing": ["libs/testing/src/index.ts"],
       "@valueadd/validation-messages": ["libs/validation-messages/src/index.ts"],
       "@valueadd/utils": ["libs/utils/src/index.ts"],
-      "@valueadd/typed-urls": ["libs/typed-urls/src/index.ts"]
+      "@valueadd/typed-urls": ["libs/typed-urls/src/index.ts"],
+      "@valueadd/linking-tool": ["libs/linking-tool/src/index.ts"]
     },
     "rootDir": "."
   },

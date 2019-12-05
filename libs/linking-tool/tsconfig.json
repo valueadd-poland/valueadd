@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "baseUrl": "tsconfig",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "rootDir": "src/",
+    "sourceMap": true,
+    "target": "es2015",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
+    "types": ["jasmine", "node"],
+    "outDir": "../../dist/libs/linking-tool"
+  },
+  "include": ["src/**/*", "**/*.ts"],
+  "exclude": ["../../node_modules", "../../tmp"]
+}

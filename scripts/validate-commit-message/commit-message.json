@@ -1,5 +1,14 @@
 {
   "maxLength": 100,
   "types": ["build", "ci", "docs", "feat", "fix", "perf", "refactor", "chore", "style", "test"],
-  "scopes": ["common", "testing", "core", "release", "validation-messages", "utils", "typed-urls"]
+  "scopes": [
+    "common",
+    "testing",
+    "core",
+    "release",
+    "validation-messages",
+    "utils",
+    "typed-urls",
+    "linking-tool"
+  ]
 }
