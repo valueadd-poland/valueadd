@@ -1,0 +1,23 @@
+{
+  "name": "@valueadd/linking-tool",
+  "schematics": "./lib/schematics/collection.json",
+  "description": "Generate links for routing across the app",
+  "homepage": "https://github.com/valueadd-poland/valueadd/tree/master/libs/linking-tool",
+  "author": "ValueAdd sp. z o.o",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valueadd-poland/valueadd.git"
+  },
+  "bugs": {
+    "url": "https://github.com/valueadd-poland/valueadd/issues"
+  },
+  "keywords": [
+    "schematics",
+    "routing",
+    "linking tool",
+    "generate links"
+  ],
+  "peerDependencies": {},
+  "scripts": {}
+}
