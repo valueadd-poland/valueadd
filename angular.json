@@ -218,6 +218,40 @@
           "styleext": "scss"
         }
       }
+    },
+    "translations-finder": {
+      "root": "libs/translations-finder",
+      "sourceRoot": "libs/translations-finder/src",
+      "projectType": "library",
+      "prefix": "valueadd",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/translations-finder/tsconfig.lib.json",
+            "project": "libs/translations-finder/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/translations-finder/tsconfig.lib.json",
+              "libs/translations-finder/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/translations-finder/**"]
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/translations-finder/src/test.ts",
+            "tsConfig": "libs/translations-finder/tsconfig.spec.json",
+            "karmaConfig": "libs/translations-finder/karma.conf.js"
+          }
+        }
+      },
+      "schematics": {}
     }
   },
   "cli": {
