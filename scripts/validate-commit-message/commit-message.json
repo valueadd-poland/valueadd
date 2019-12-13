@@ -9,6 +9,7 @@
     "validation-messages",
     "utils",
     "typed-urls",
-    "linking-tool"
+    "linking-tool",
+    "translations-finder"
   ]
 }
