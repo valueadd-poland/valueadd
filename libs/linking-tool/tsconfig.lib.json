@@ -1,11 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist/out-tsc",
+    "outDir": "../../dist/libs/linking-tool",
     "target": "es2015",
     "declaration": true,
     "inlineSources": true,
     "types": [],
+    "resolveJsonModule": true,
     "lib": ["dom", "es2018"]
   },
   "angularCompilerOptions": {
