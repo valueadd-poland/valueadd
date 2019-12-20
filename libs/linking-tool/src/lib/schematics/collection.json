@@ -3,8 +3,8 @@
   "schematics": {
     "generate-links": {
       "description": "Generate links map across all apps",
-      "factory": "../index#generateLinks",
-      "schema": "./schematics/schema.json"
+      "factory": "./generate-links/index#generateLinks",
+      "schema": "./generate-links/schema.json"
     }
   }
 }
