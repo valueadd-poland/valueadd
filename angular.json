@@ -188,7 +188,7 @@
       "prefix": "valueadd",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "./libs/devkit/builders/build-ng-packagr-and-schematics:build",
           "options": {
             "tsConfig": "libs/linking-tool/tsconfig.lib.json",
             "project": "libs/linking-tool/ng-package.json"
