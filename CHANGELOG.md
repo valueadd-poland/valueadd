@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.1](https://github.com-home///compare/v2.0.0...v2.3.1) (2019-12-23)
+
+
+### Bug Fixes
+
+* **linking-tool:** add needed dependency for linking tool ([2cfd116](https://github.com-home///commit/2cfd116))
+
 ## [2.3.0](https://github.com-home///compare/v2.0.0...v2.3.0) (2019-12-20)
 
 
