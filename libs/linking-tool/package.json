@@ -2,6 +2,9 @@
   "name": "@valueadd/linking-tool",
   "schematics": "./lib/schematics/collection.json",
   "description": "Generate links for routing across the app",
+  "dependencies": {
+    "ts-morph": "^4.0.1"
+  },
   "homepage": "https://github.com/valueadd-poland/valueadd/tree/master/libs/linking-tool",
   "author": "ValueAdd sp. z o.o",
   "license": "MIT",
