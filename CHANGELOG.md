@@ -8,17 +8,7 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * **linking-tool:** add dependency to library's package json ([b66921d](https://github.com-home///commit/b66921d))
-* **linking-tool:** add needed dependency for linking tool ([2cfd116](https://github.com-home///commit/2cfd116))
-* **linking-tool:** adjust params to library build ([dfc72c0](https://github.com-home///commit/dfc72c0))
-* **linking-tool:** adjust structure ([98b2e65](https://github.com-home///commit/98b2e65))
-* **validation-messages:** fix import and remove unnecessary barrel ([ccac5b7](https://github.com-home///commit/ccac5b7))
-* **validation-messages:** validationMessagesService is duplicated ([8e02c20](https://github.com-home///commit/8e02c20)), closes [#NV-24](https://github.com-home///issues/NV-24)
 
-
-### Features
-
-* **linking-tool:** add linking tool library ([0974b39](https://github.com-home///commit/0974b39))
-* **typed-urls:** add typed-urls library ([4ecd47c](https://github.com-home///commit/4ecd47c))
 
 ### [2.3.1](https://github.com-home///compare/v2.0.0...v2.3.1) (2019-12-23)
 
