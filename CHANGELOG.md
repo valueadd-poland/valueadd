@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.3](https://github.com-home///compare/v2.0.0...v2.3.3) (2019-12-23)
+
+
+### Bug Fixes
+
+* **linking-tool:** whitelist ts-morph for linking-tool library ([97d4f26](https://github.com-home///commit/97d4f26))
+
+
 ### [2.3.2](https://github.com-home///compare/v2.0.0...v2.3.2) (2019-12-23)
 
 
