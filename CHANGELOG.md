@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.0](https://priv.github.com/valueadd-poland/valueadd/compare/v2.0.0...v2.4.0) (2020-01-03)
+
+
+### Bug Fixes
+
+* **common:** adjust props in package ([6f8840b](https://priv.github.com/valueadd-poland/valueadd/commit/6f8840b))
+* **linking-tool:** add dependency to library's package json ([b66921d](https://priv.github.com/valueadd-poland/valueadd/commit/b66921d))
+* **linking-tool:** add needed dependency for linking tool ([2cfd116](https://priv.github.com/valueadd-poland/valueadd/commit/2cfd116))
+* **linking-tool:** adjust params to library build ([dfc72c0](https://priv.github.com/valueadd-poland/valueadd/commit/dfc72c0))
+* **linking-tool:** adjust structure ([98b2e65](https://priv.github.com/valueadd-poland/valueadd/commit/98b2e65))
+* **linking-tool:** whitelist ts-morph for linking-tool library ([97d4f26](https://priv.github.com/valueadd-poland/valueadd/commit/97d4f26))
+* **translations-finder:** remove types from annotations ([5ed4524](https://priv.github.com/valueadd-poland/valueadd/commit/5ed4524))
+* **validation-messages:** fix import and remove unnecessary barrel ([ccac5b7](https://priv.github.com/valueadd-poland/valueadd/commit/ccac5b7))
+* **validation-messages:** validationMessagesService is duplicated ([8e02c20](https://priv.github.com/valueadd-poland/valueadd/commit/8e02c20)), closes [#NV-24](https://priv.github.com/valueadd-poland/valueadd/issues/NV-24)
+
+
+### Features
+
+* **linking-tool:** add linking tool library ([0974b39](https://priv.github.com/valueadd-poland/valueadd/commit/0974b39))
+* **translations-finder:** add translations-finder ([9632833](https://priv.github.com/valueadd-poland/valueadd/commit/9632833)), closes [#HOA-31](https://priv.github.com/valueadd-poland/valueadd/issues/HOA-31)
+* **typed-urls:** add typed-urls library ([4ecd47c](https://priv.github.com/valueadd-poland/valueadd/commit/4ecd47c))
+
 ### [2.3.3](https://github.com-home///compare/v2.0.0...v2.3.3) (2019-12-23)
 
 
