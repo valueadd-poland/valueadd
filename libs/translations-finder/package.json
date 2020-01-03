@@ -20,18 +20,5 @@
     "translation keys",
     "loco translation keys finder",
     "ngx-translate"
-  ],
-  "scripts": {
-    "build": "tsc --declaration ./src/lib/translations-finder.util.ts",
-    "postbuild": "prettier --write ./src/lib/translations-finder.util.d.ts"
-  },
-  "devDependencies": {
-    "prettier": "1.19.1",
-    "tslib": "1.10.0",
-    "@types/node": "12.12.18",
-    "@types/glob": "7.1.1"
-  },
-  "dependencies": {
-    "glob": "7.1.6"
-  }
+  ]
 }
