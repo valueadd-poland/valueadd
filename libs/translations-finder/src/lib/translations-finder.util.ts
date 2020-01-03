@@ -29,12 +29,12 @@ import * as fs from 'fs';
  *
  * @method flattenObjectRecursively
  *
- * @param {any} object
+ * @param object
  *
- * @param {string} prefix
+ * @param prefix
  * The key of the parent property
  *
- * @return {Record<string, string>}
+ * @return
  * Object without any nesting
  */
 const flattenObjectRecursively = (object: any, prefix: string): Record<string, string> => {
@@ -61,7 +61,7 @@ const flattenObjectRecursively = (object: any, prefix: string): Record<string, s
  *
  * @method flattenObjectRecursively
  *
- * @param {any} object
+ * @param object
  */
 const flattenObject = (object: any): Record<string, string> => {
   let flattenedObject: Record<string, string> = {};
@@ -85,16 +85,16 @@ const flattenObject = (object: any): Record<string, string> => {
  *
  * @method compareTranslations
  *
- * @param {Record<string, string[]>} foundTranslationKeys
+ * @param foundTranslationKeys
  * Translations found in the local filesystem
  *
- * @param {Record<string, string>} preparedTranslations
+ * @param preparedTranslations
  * Translated keys
  *
- * @param {RegExp} translationKeyRegex
+ * @param translationKeyRegex
  * The regex to extract the translation key from the matched text
  *
- * @return {Record<string, string[]>}
+ * @return
  * Missing translations
  */
 const compareTranslations = (
@@ -141,13 +141,13 @@ interface FilePathTranslationKeys {
  *
  * @method findTranslationKeysInFiles
  *
- * @param {string[]} filePaths
+ * @param filePaths
  * Files to search in
  *
- * @param {RegExp} translationKeysRegex
+ * @param translationKeysRegex
  * Regex used to find the text which distinguish translation keys
  *
- * @return {Promise<Record<string, string[]>>}
+ * @return
  * All found translations with filenames
  */
 const findTranslationKeysInFiles = async (
@@ -187,14 +187,14 @@ const findTranslationKeysInFiles = async (
  *
  * @method findTranslations
  *
- * @param {Record<string, string> | any} definedTranslations
+ * @param definedTranslations
  * Translated keys
  * If the given object has nested properties, it will be flattened
  *
- * @param {string} globFilePattern
+ * @param globFilePattern
  * Glob to find files
  *
- * @param {RegExp} translationsRegex
+ * @param translationsRegex
  * When:
  *
  * a) translationKeyRegex is given,
@@ -204,7 +204,7 @@ const findTranslationKeysInFiles = async (
  * b) translationKeyRegex is not given,
  * translationRegex finds the translation key
  *
- * @param {RegExp} translationKeyRegex
+ * @param translationKeyRegex
  * Use if translationRegex is used to distinguish a text that includes a key
  * and this text isn't the key itself
  *
@@ -218,11 +218,11 @@ const findTranslationKeysInFiles = async (
  *
  * ```
  *
- * @param {string} directory
+ * @param directory
  * Root directory that will be searched in,
  * by default it is process.cwd()
  *
- * @return {Promise<Record<string, string[]>>}
+ * @return
  * Missing translation keys
  */
 export const findMissingTranslations = async (
