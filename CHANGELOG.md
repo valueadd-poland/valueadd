@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.1](https://patryk.zielinski93.github.com/valueadd-poland/valueadd/compare/v2.5.0...v2.5.1) (2020-01-20)
+
+
+### Bug Fixes
+
+* **validation-messages:** fix invalid dependencies ([2b6f3c7](https://patryk.zielinski93.github.com/valueadd-poland/valueadd/commit/2b6f3c7))
+
 ## [2.5.0](https://patryk.zielinski93.github.com/valueadd-poland/valueadd/compare/v2.0.0...v2.5.0) (2020-01-20)
 
 
