@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.1](https://github.com-home///compare/v2.4.0...v2.4.1) (2020-01-20)
+
+
+### Bug Fixes
+
+* **validation-messages:** change input type to abstract control ([978f231](https://github.com-home///commit/978f231))
+
 ## [2.4.0](https://priv.github.com/valueadd-poland/valueadd/compare/v2.0.0...v2.4.0) (2020-01-03)
 
 
