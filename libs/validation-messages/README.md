@@ -1,6 +1,6 @@
 # Installation
 
-`npm install @valueadd/ng-validation-messages`
+`npm install @valueadd/validation-messages`
 
 # Usage
 
