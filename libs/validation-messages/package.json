@@ -11,6 +11,9 @@
   "bugs": {
     "url": "https://github.com/valueadd-poland/valueadd/issues"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    "memoizee": "^0.4.14",
+    "rxjs": "^6.5.2"
+  },
   "scripts": {}
 }
