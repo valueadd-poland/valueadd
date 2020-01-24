@@ -1,13 +1,7 @@
-import { Params } from '@angular/router';
+import { LinkParams } from './link-params.interface';
 
 export interface Link<T = string> {
-  params?: {
-    anchor?: string;
-    embedded?: { id: string };
-    queryParams?: Params;
-    skipLocationChange?: boolean;
-    [key: string]: any;
-  };
+  params?: LinkParams;
   path?: string;
   type?: T;
 }

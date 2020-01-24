@@ -7,13 +7,18 @@
   "properties": {
     "resultPath": {
       "type": "string",
-      "description": "Result links-map filename",
+      "description": "Result links filename",
       "$default": {
         "$source": "argv",
         "index": 0
       },
-      "x-prompt": "Path, where you want to save generated links-map:"
+      "x-prompt": "Path, where you want to save generated links object:"
+    },
+    "resultType": {
+      "description": "Result type",
+      "enum": ["map", "tree"],
+      "x-prompt": "Result links object type"
     }
   },
-  "required": ["resultPath"]
+  "required": ["resultPath", "resultType"]
 }

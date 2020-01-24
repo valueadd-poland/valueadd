@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.lib.json",
+  "compilerOptions": {
+    "module": "commonjs"
+  },
+  "include": [
+    "src/lib/schematics/**/*",
+    "src/lib/schematics/**/*.ts",
+    "src/lib/schematics/**/*.json"
+  ],
+  "exclude": ["../../node_modules", "../../tmp"]
+}

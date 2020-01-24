@@ -3,6 +3,7 @@ import {
   ArrowFunction,
   CallExpression,
   Expression,
+  Identifier,
   Node,
   ObjectLiteralExpression,
   PropertyAccessExpression,
@@ -26,15 +27,30 @@ export class TypescriptApiUtil {
     ).getElements();
   }
 
-  static getImportValueFromArrowFunction(arrowFunction: ArrowFunction): string {
+  static getThenValueFromImportArrowFunction(arrowFunction: ArrowFunction): string {
     const callExpression = TypescriptApiUtil.getCallExpressionFromArrowFunction(arrowFunction);
-    const importThen = TypescriptApiUtil.getPropertyAccessExpressionFromCallExpression(
-      callExpression
+    const propertyAccessExpression = TypescriptApiUtil.getPropertyAccessExpressionFromArrowFunction(
+      arrowFunction
     );
-    const importCall = TypescriptApiUtil.getCallExpressionFromPropertyAccessExpression(importThen);
-    return TypescriptApiUtil.getCallExpressionArguments(importCall).length
-      ? TypescriptApiUtil.getCallExpressionArguments(importCall)[0].getText()
-      : '';
+    const modulePath = TypescriptApiUtil.getCallExpressionArguments(
+      propertyAccessExpression.getExpression() as CallExpression
+    );
+    const importThenArguments = TypescriptApiUtil.getCallExpressionArguments(callExpression);
+
+    if (!importThenArguments || !importThenArguments.length) {
+      throw new Error('Bad import-then block for ' + arrowFunction.getBodyText());
+    }
+
+    const importThenArrowFunction = importThenArguments.find(node =>
+      TypescriptApiUtil.isArrowFunction(node as PropertyAssignment)
+    );
+
+    if (!importThenArrowFunction) {
+      throw new Error('No arrow function found in ' + arrowFunction.getBodyText());
+    }
+
+    const thenBody = (importThenArrowFunction as ArrowFunction).getBody() as PropertyAccessExpression;
+    return `${modulePath}/${thenBody.getNameNode().getText()}`;
   }
 
   static getObjectLiteralExpression(
@@ -80,11 +96,12 @@ export class TypescriptApiUtil {
     return expression instanceof ArrayLiteralExpression;
   }
 
-  static isArrowFunction(propertyAssignment: PropertyAssignment): boolean {
-    return (
-      !!propertyAssignment.getInitializer() &&
-      (propertyAssignment.getInitializer() as Expression).getKind() === SyntaxKind.ArrowFunction
-    );
+  static isArrowFunction(object: PropertyAssignment | ArrowFunction): boolean {
+    return object.getKind() === SyntaxKind.ArrowFunction
+      ? true
+      : !!(object as PropertyAssignment).getInitializer() &&
+          ((object as PropertyAssignment).getInitializer() as Expression).getKind() ===
+            SyntaxKind.ArrowFunction;
   }
 
   static isObjectLiteralExpression(expression: Expression): boolean {
@@ -133,6 +150,12 @@ export class TypescriptApiUtil {
     propertyAccessExpression: PropertyAccessExpression
   ): CallExpression {
     return propertyAccessExpression.getExpression() as CallExpression;
+  }
+
+  private static getPropertyAccessExpressionFromArrowFunction(
+    arrowFunction: ArrowFunction
+  ): PropertyAccessExpression {
+    return arrowFunction.getBody() as PropertyAccessExpression;
   }
 
   private static getPropertyAccessExpressionFromCallExpression(

@@ -1,11 +1,10 @@
 import { TestBed } from '@angular/core/testing';
+import { LinksMapService } from './links-map.service';
+import { LinksMapModule } from '../links-map.module';
+import { LinkType } from '../../resources/enums/link-type.enum';
+import { LinksMap } from '../resources/models/links-map.interface';
 
-import { LinkService } from './link.service';
-import { LinkingToolModule } from '../linking-tool.module';
-import { LinksMap, LinkType } from '../resources';
-import { Params } from '@angular/router';
-
-describe('LinkService', () => {
+describe('LinksMapService', () => {
   const customLinkType = 'link';
   const customUrl = 'link';
   const linksMap: LinksMap = { [customLinkType]: customUrl };
@@ -13,42 +12,17 @@ describe('LinkService', () => {
     ...LinkType,
     [customLinkType]: customLinkType
   };
-  let service: LinkService;
+  let service: LinksMapService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [LinkingToolModule.forRoot(linksMap, linkType)]
+      imports: [LinksMapModule.forRoot(linksMap, linkType)]
     });
-    service = TestBed.get(LinkService);
+    service = TestBed.get(LinksMapService);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
-  });
-
-  describe('convertParamsToQueryParamsString', () => {
-    it('should return empty string if empty params passed in', () => {
-      const params: Params = {};
-      // @ts-ignore
-      expect(service.convertParamsToQueryParamsString(params)).toBe('');
-    });
-
-    it('should return query params string with one value', () => {
-      const params: Params = {
-        param: 'param'
-      };
-      // @ts-ignore
-      expect(service.convertParamsToQueryParamsString(params)).toBe('?param=param');
-    });
-
-    it('should return query params string with two values', () => {
-      const params: Params = {
-        param1: 'param1',
-        param2: 'param2'
-      };
-      // @ts-ignore
-      expect(service.convertParamsToQueryParamsString(params)).toBe('?param1=param1&param2=param2');
-    });
   });
 
   describe('generateExternalUrlLink', () => {
