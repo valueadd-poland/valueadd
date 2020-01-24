@@ -1,20 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Params } from '@angular/router';
-import { Link, LinksMap, LinkType, RouterLink, utils } from '../resources';
+import { utils } from '../../resources/utils';
+import { BaseLinksService } from '../../link/base-links.service';
+import { LinksMap } from '../resources/models/links-map.interface';
+import { LinkType } from '../../resources/enums/link-type.enum';
+import { Link } from '../../resources/models/link.interface';
+import { RouterLink } from '../../resources/models/router-link.interface';
 
 @Injectable()
-export class LinkService {
+export class LinksMapService extends BaseLinksService {
   private linksMap: LinksMap;
-  private linkType: typeof LinkType;
-
-  generateExternalUrlLink(url: string): Link {
-    return {
-      type: this.linkType.externalUrl,
-      params: {
-        url
-      }
-    };
-  }
 
   init(linksMap: LinksMap, linkType: typeof LinkType): void {
     this.linksMap = linksMap;
@@ -23,48 +17,29 @@ export class LinkService {
 
   resolveLinkUrl(link: Link): string {
     let url = null;
-
     if (link.type === LinkType.externalUrl) {
       return utils.hasProtocolOrIsProtocolRelative(link.params.url)
         ? link.params.url
         : '//' + link.params.url;
-    }
-
-    if (this.linksMap[link.type]) {
+    } else if (this.linksMap[link.type]) {
       url = this.linksMap[link.type];
     } else if (link.path) {
       url = link.path;
     }
-
     if (link.params) {
       url = utils.interpolate(url, link.params);
       if (link.params.anchor) {
         url += '#' + link.params.anchor;
       }
       if (link.params.queryParams) {
-        url += this.convertParamsToQueryParamsString(link.params.queryParams);
+        url += utils.convertParamsToQueryParamsString(link.params.queryParams);
       }
     }
-
     return url || '#';
   }
 
   resolveRouterLink(link: Link): RouterLink {
     return this.linksMap[link.type] ? this.getRouterLink(link) : { path: ['#'] };
-  }
-
-  private convertParamsToQueryParamsString(params: Params): string {
-    let result = '';
-    const paramsObject = Object.keys(params);
-
-    if (!!paramsObject.length) {
-      result = '?';
-      paramsObject.forEach((key: string, index: number) => {
-        result += `${key}=${params[key]}${index < paramsObject.length ? '&' : ''}`;
-      });
-    }
-
-    return result.slice(0, -1);
   }
 
   private getRouterLink(link: Link): RouterLink {

@@ -5,7 +5,7 @@ export class CommonUtil {
     return typeof element === 'function';
   }
 
-  static isValidRoutingModule(source: SourceFile): boolean {
+  static isValidRoutingModule(source?: SourceFile): boolean {
     return (
       !!source.getStatementByKind(SyntaxKind.ClassDeclaration) &&
       !!source.getStatementByKind(SyntaxKind.VariableStatement)
