@@ -1,6 +1,9 @@
 {
   "name": "@valueadd/typed-urls",
   "description": "Lib to URLs interpolation in Angular.",
+  "dependencies": {
+    "query-string": "^6.8.3"
+  },
   "homepage": "https://github.com/valueadd-poland/valueadd/tree/master/libs/typed-urls",
   "author": "ValueAdd sp. z o.o",
   "license": "MIT",

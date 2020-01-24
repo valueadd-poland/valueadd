@@ -1,11 +1,11 @@
-import { InterpolatableUrl, Url } from '../../models';
+import { InterpolatableUrl, Params, Url } from '../../models';
 
 export function urlFactory(url: string, interpolatable?: false): Url;
-export function urlFactory<T extends string>(
+export function urlFactory<T extends Params>(
   url: string,
   interpolatable: true
 ): InterpolatableUrl<T>;
-export function urlFactory<T extends string>(
+export function urlFactory<T extends Params>(
   url: string,
   interpolatable = false
 ): InterpolatableUrl<T> | Url {
