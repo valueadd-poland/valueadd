@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.lib.json",
+  "compilerOptions": {
+    "module": "esnext"
+  },
+  "include": ["src/lib/runtime/**/*", "src/lib/runtime/**/*.ts", "src/lib/runtime/**/*.json"],
+  "exclude": ["../../node_modules", "../../tmp"]
+}

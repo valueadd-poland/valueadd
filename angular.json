@@ -190,7 +190,8 @@
         "build": {
           "builder": "./libs/devkit/builders/build-ng-packagr-and-schematics:build",
           "options": {
-            "tsConfig": "libs/linking-tool/tsconfig.lib.json",
+            "tsConfigRuntime": "libs/linking-tool/tsconfig-runtime.lib.json",
+            "tsConfigSchematics": "libs/linking-tool/tsconfig-schematics.lib.json",
             "project": "libs/linking-tool/ng-package.json"
           }
         },

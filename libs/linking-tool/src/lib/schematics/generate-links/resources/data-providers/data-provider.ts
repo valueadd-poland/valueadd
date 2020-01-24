@@ -1,4 +1,4 @@
-import { ArrowFunction, ObjectLiteralExpression, SourceFile } from 'ts-morph';
+import { ArrowFunction, ObjectLiteralExpression, PropertyAssignment, SourceFile } from 'ts-morph';
 import { GenerateLinksProperty } from '../enums/generate-links-property.enum';
 import { RouteDeclaration } from '../interfaces/route-declaration.interface';
 import { TypescriptApiUtil } from '../utils/typescript-api.util';
@@ -53,34 +53,48 @@ export class DataProvider {
       GenerateLinksProperty.LoadChildren,
       object
     );
-    let lazyLoadedModulePath: string[] = [];
-    let lazyLoadedModuleName = '';
 
     if (TypescriptApiUtil.isStringLiteral(loadChildrenAssignment)) {
       // lazy loaded module import till v7
-      lazyLoadedModulePath = TypescriptApiUtil.getStringValue(loadChildrenAssignment).split('#');
-      lazyLoadedModuleName = lazyLoadedModulePath[1];
+      return DataProvider.resolveLoadChildrenForV7AndBelow(loadChildrenAssignment);
     }
 
     if (TypescriptApiUtil.isArrowFunction(loadChildrenAssignment)) {
       // lazy loaded module import from v8 and Ivy
-      lazyLoadedModulePath = TypescriptApiUtil.getImportValueFromArrowFunction(
-        loadChildrenAssignment.getInitializer() as ArrowFunction
-      ).split('/');
-      lazyLoadedModuleName = lazyLoadedModulePath[lazyLoadedModulePath.length - 1];
+      return DataProvider.resolveLoadChildrenForIvy(loadChildrenAssignment);
     }
+  }
+
+  private static resolveLoadChildrenForV7AndBelow(
+    loadChildrenAssignment: PropertyAssignment
+  ): string {
+    const lazyLoadedModulePath = TypescriptApiUtil.getStringValue(loadChildrenAssignment).split(
+      '#'
+    );
+    const lazyLoadedModuleName = lazyLoadedModulePath[1];
 
     if (!lazyLoadedModuleName) {
       throw new Error(`Bad path detected: ${lazyLoadedModulePath.join('/')}`);
     }
 
-    return (
-      lazyLoadedModuleName
-        .split(/(?=[A-Z])/)
-        .map(word => word.toLowerCase())
-        .filter(word => word !== 'module')
-        .join('-') + '-routing.module.ts'
-    );
+    return lazyLoadedModuleName
+      .split(/(?=[A-Z])/)
+      .map(word => word.toLowerCase())
+      .filter(word => word !== 'module')
+      .join('-')
+      .concat('-routing.module.ts');
+  }
+
+  private static resolveLoadChildrenForIvy(loadChildrenAssignment: PropertyAssignment): string {
+    const lazyLoadedModulePath = TypescriptApiUtil.getThenValueFromImportArrowFunction(
+      loadChildrenAssignment.getInitializer() as ArrowFunction
+    )
+      .split(/([A-Z]?[^A-Z]*)/g)
+      .filter(word => !!word && word !== 'Module' && word !== 'Feature');
+    return lazyLoadedModulePath
+      .map(word => word.toLowerCase())
+      .join('-')
+      .concat('-routing.module.ts');
   }
 
   private static resolvePath(object: ObjectLiteralExpression): string {

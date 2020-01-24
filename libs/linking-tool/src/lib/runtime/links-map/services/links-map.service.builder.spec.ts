@@ -1,14 +1,14 @@
-import { LinkServiceBuilder } from './link.service.builder';
-import { LinkType } from '../resources/enums';
-import { LinkService } from './link.service';
+import { LinksMapServiceBuilder } from './links-map.service.builder';
+import { LinksMapService } from './links-map.service';
+import { LinkType } from '../../resources/enums/link-type.enum';
 
-describe('LinkServiceBuilder', () => {
+describe('LinksMapServiceBuilder', () => {
   const linksMap = { link: 'link' };
   const linkType = { ...LinkType, link: 'link' };
-  let serviceBuilder: LinkServiceBuilder;
+  let serviceBuilder: LinksMapServiceBuilder;
 
   beforeEach(() => {
-    serviceBuilder = new LinkServiceBuilder();
+    serviceBuilder = new LinksMapServiceBuilder();
   });
 
   it('should be created', () => {
@@ -21,19 +21,19 @@ describe('LinkServiceBuilder', () => {
   });
 
   describe('build', () => {
-    it('should return LinkService instance with linksMap and linkType', () => {
-      const linkService = new LinkService();
+    it('should return LinksMapService instance with linksMap and linkType', () => {
+      const linksMapService = new LinksMapService();
       // @ts-ignore
-      linkService.linksMap = linksMap;
+      linksMapService.linksMap = linksMap;
       // @ts-ignore
-      linkService.linkType = linkType;
+      linksMapService.linkType = linkType;
 
       // @ts-ignore
       serviceBuilder.linksMap = linksMap;
       // @ts-ignore
       serviceBuilder.linkType = linkType;
 
-      expect(serviceBuilder.build()).toEqual(linkService);
+      expect(serviceBuilder.build()).toEqual(linksMapService);
     });
   });
 
