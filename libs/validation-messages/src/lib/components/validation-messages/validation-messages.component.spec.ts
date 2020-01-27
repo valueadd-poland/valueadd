@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ValidationMessagesComponent } from './validation-messages.component';
 import { FormControl, Validators } from '@angular/forms';
 import { ValidationMessagesModule } from '@valueadd/validation-messages';
+
+import { ValidationMessagesComponent } from './validation-messages.component';
 
 describe('ValidationMessagesComponent', () => {
   let component: ValidationMessagesComponent;

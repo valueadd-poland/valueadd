@@ -49,9 +49,9 @@ export class GenerateLinksService {
       if (route.loadChildren) {
         this.resolveLink(
           pathFromRoot.concat(path),
-          DataProvider.getRouteDeclarations(this.project.getSourceFile(
-            route.loadChildren
-          ) as SourceFile)
+          DataProvider.getRouteDeclarations(
+            this.project.getSourceFile(route.loadChildren) as SourceFile
+          )
         );
       }
     });

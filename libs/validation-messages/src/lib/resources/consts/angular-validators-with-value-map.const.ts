@@ -1,4 +1,5 @@
-import { AngularValidatorsWithValue, AngularValidatorValue } from '../enums';
+import { AngularValidatorValue } from '../enums/angular-validator-value.enum';
+import { AngularValidatorsWithValue } from '../enums/angular-validators-with-value.enum';
 
 export const angularValidatorsWithValueMap = {
   [AngularValidatorsWithValue.MaxLength]: AngularValidatorValue.RequiredLength,

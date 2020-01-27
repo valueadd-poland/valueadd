@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, DoCheck, Input, OnDestroy } from '@angula
 import { AbstractControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ApiErrorMessage } from '../../resources/interfaces';
+import { ApiErrorMessage } from '../../resources/interfaces/api-error-message.interface';
 import { ValidationMessagesService } from '../../services/validation-messages.service';
 
 @Component({
@@ -10,40 +10,20 @@ import { ValidationMessagesService } from '../../services/validation-messages.se
   templateUrl: './validation-messages.component.html'
 })
 export class ValidationMessagesComponent implements OnDestroy, DoCheck {
-  materialErrorMatcher = false;
-  errorMessages: string[] = [];
   @Input()
   control?: AbstractControl;
-  showServerErrors = false;
+  errorMessages: string[] = [];
+  materialErrorMatcher = false;
   parsedApiErrorMessages: string[] = [];
+  showServerErrors = false;
   valueChanges: Subscription | null = null;
-  private ngUnsubscribe: Subject<void> = new Subject<void>();
-
-  constructor(
-    private cd: ChangeDetectorRef,
-    private validationMessagesService: ValidationMessagesService
-  ) {
-    this.unsubscribeAndClearValueChanges = this.unsubscribeAndClearValueChanges.bind(this);
-    this.materialErrorMatcher = validationMessagesService.materialErrorMatcher;
-  }
-
-  private _multiple = false;
-
-  get multiple(): boolean {
-    return this._multiple;
-  }
-
-  @Input()
-  set multiple(multiple: boolean) {
-    this._multiple = multiple;
-    this.updateErrorMessages();
-  }
-
   private _apiErrorMessages:
     | Array<ApiErrorMessage | string>
     | ApiErrorMessage
     | string
     | null = null;
+  private _multiple = false;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   get apiErrorMessages(): Array<ApiErrorMessage | string> | ApiErrorMessage | string | null {
     return this._apiErrorMessages;
@@ -65,6 +45,39 @@ export class ValidationMessagesComponent implements OnDestroy, DoCheck {
 
       this.observeInputValueChanges();
     }
+  }
+
+  get multiple(): boolean {
+    return this._multiple;
+  }
+
+  @Input()
+  set multiple(multiple: boolean) {
+    this._multiple = multiple;
+    this.updateErrorMessages();
+  }
+
+  constructor(
+    private cd: ChangeDetectorRef,
+    private validationMessagesService: ValidationMessagesService
+  ) {
+    this.unsubscribeAndClearValueChanges = this.unsubscribeAndClearValueChanges.bind(this);
+    this.materialErrorMatcher = validationMessagesService.materialErrorMatcher;
+  }
+
+  ngDoCheck(): void {
+    if (
+      this.control &&
+      ((this.control.invalid && this.control.touched) ||
+        (!this.control.invalid && this.errorMessages.length > 0))
+    ) {
+      this.updateErrorMessages();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   observeInputValueChanges(): void {
@@ -95,19 +108,18 @@ export class ValidationMessagesComponent implements OnDestroy, DoCheck {
     );
   }
 
-  ngOnDestroy(): void {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
-  }
-
-  ngDoCheck(): void {
-    if (
-      this.control &&
-      ((this.control.invalid && this.control.touched) ||
-        (!this.control.invalid && this.errorMessages.length > 0))
-    ) {
-      this.updateErrorMessages();
+  private unsubscribeAndClearValueChanges(): void {
+    if (this.control) {
+      this.control.setErrors({});
+      this.control.updateValueAndValidity({ onlySelf: true, emitEvent: false });
     }
+
+    if (this.valueChanges && !this.valueChanges.closed) {
+      this.valueChanges.unsubscribe();
+    }
+
+    this.showServerErrors = false;
+    this.valueChanges = null;
   }
 
   private updateErrorMessages(): void {
@@ -129,19 +141,5 @@ export class ValidationMessagesComponent implements OnDestroy, DoCheck {
         }
       }
     }
-  }
-
-  private unsubscribeAndClearValueChanges(): void {
-    if (this.control) {
-      this.control.setErrors({});
-      this.control.updateValueAndValidity({ onlySelf: true, emitEvent: false });
-    }
-
-    if (this.valueChanges && !this.valueChanges.closed) {
-      this.valueChanges.unsubscribe();
-    }
-
-    this.showServerErrors = false;
-    this.valueChanges = null;
   }
 }

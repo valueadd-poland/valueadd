@@ -37,7 +37,10 @@ export class LocalStorageClient {
    */
   static remove(collection: string, id: string | number): Observable<null> {
     const entities = LocalStorageClient.getCollection(collection);
-    LocalStorageClient.setCollection(collection, entities.filter(entity => entity.id !== id));
+    LocalStorageClient.setCollection(
+      collection,
+      entities.filter(entity => entity.id !== id)
+    );
 
     return of(null);
   }

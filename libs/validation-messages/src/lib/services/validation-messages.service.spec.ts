@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { ValidationMessagesConfig } from '../resources/interfaces';
+import { ValidationMessagesConfig } from '../resources/interfaces/validation-messages-config.interface';
 import { ValidationMessagesService } from './validation-messages.service';
 
 describe('ValidationMessagesService', () => {
