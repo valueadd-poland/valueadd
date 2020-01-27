@@ -11,6 +11,12 @@
   "bugs": {
     "url": "https://github.com/valueadd-poland/valueadd/issues"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    "@angular/forms": "^8.2.0",
+    "@angular/common": "^8.2.0",
+    "@angular/core": "^8.2.0",
+    "memoizee": "^0.4.14",
+    "rxjs": "^6.5.2"
+  },
   "scripts": {}
 }

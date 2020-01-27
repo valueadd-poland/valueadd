@@ -1,0 +1,24 @@
+{
+  "name": "@valueadd/translations-finder",
+  "version": "1.0.0",
+  "description": "The tool which will help you to find missing translations",
+  "homepage": "https://github.com/valueadd-poland/valueadd/tree/master/libs/translations-finder",
+  "main": "./src/lib/translations-finder.util.js",
+  "types": "./src/lib/translations-finder.util.d.ts",
+  "author": "ValueAdd sp. z o.o",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valueadd-poland/valueadd.git"
+  },
+  "bugs": {
+    "url": "https://github.com/valueadd-poland/valueadd/issues"
+  },
+  "keywords": [
+    "translations finder",
+    "translations",
+    "translation keys",
+    "loco translation keys finder",
+    "ngx-translate"
+  ]
+}

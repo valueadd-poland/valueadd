@@ -180,6 +180,78 @@
           "styleext": "scss"
         }
       }
+    },
+    "linking-tool": {
+      "projectType": "library",
+      "root": "libs/linking-tool",
+      "sourceRoot": "libs/linking-tool/src",
+      "prefix": "valueadd",
+      "architect": {
+        "build": {
+          "builder": "./libs/devkit/builders/build-ng-packagr-and-schematics:build",
+          "options": {
+            "tsConfig": "libs/linking-tool/tsconfig.lib.json",
+            "project": "libs/linking-tool/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/linking-tool/tsconfig.lib.json",
+              "libs/linking-tool/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/linking-tool/**"]
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/linking-tool/src/test.ts",
+            "tsConfig": "libs/linking-tool/tsconfig.spec.json",
+            "karmaConfig": "libs/linking-tool/karma.conf.js"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "translations-finder": {
+      "root": "libs/translations-finder",
+      "sourceRoot": "libs/translations-finder/src",
+      "projectType": "library",
+      "prefix": "valueadd",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/translations-finder/tsconfig.lib.json",
+            "project": "libs/translations-finder/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/translations-finder/tsconfig.lib.json",
+              "libs/translations-finder/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/translations-finder/**"]
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/translations-finder/src/test.ts",
+            "tsConfig": "libs/translations-finder/tsconfig.spec.json",
+            "karmaConfig": "libs/translations-finder/karma.conf.js"
+          }
+        }
+      },
+      "schematics": {}
     }
   },
   "cli": {

@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "GenerateLinks",
+  "title": "Generate links",
+  "type": "object",
+  "description": "Generates links-map across all app",
+  "properties": {
+    "resultPath": {
+      "type": "string",
+      "description": "Result links-map filename",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "Path, where you want to save generated links-map:"
+    }
+  },
+  "required": ["resultPath"]
+}

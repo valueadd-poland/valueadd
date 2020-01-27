@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, DoCheck, Input, OnDestroy } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ApiErrorMessage } from '../../resources/interfaces';
-import { ValidationMessagesService } from '../../services';
+import { ValidationMessagesService } from '../../services/validation-messages.service';
 
 @Component({
   selector: 'va-validation-messages',
@@ -13,7 +13,7 @@ export class ValidationMessagesComponent implements OnDestroy, DoCheck {
   materialErrorMatcher = false;
   errorMessages: string[] = [];
   @Input()
-  control?: FormControl;
+  control?: AbstractControl;
   showServerErrors = false;
   parsedApiErrorMessages: string[] = [];
   valueChanges: Subscription | null = null;

@@ -22,6 +22,12 @@
     },
     "typed-urls": {
       "tags": ["scope:typed-urls", "type:feature", "platform:desktop"]
+    },
+    "linking-tool": {
+      "tags": ["scope:linking-tool", "type:feature", "platform:desktop"]
+    },
+    "translations-finder": {
+      "tags": ["scope:translations-finder", "type:feature", "platform:desktop"]
     }
   }
 }

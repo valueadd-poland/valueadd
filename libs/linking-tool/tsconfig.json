@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "baseUrl": "tsconfig",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "rootDir": "src/",
+    "sourceMap": true,
+    "target": "es2015",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
+    "types": ["jasmine", "node"]
+  },
+  "include": [
+    "src/lib/schematics/**/*",
+    "src/lib/schematics/**/*.ts",
+    "src/lib/schematics/**/*.json"
+  ],
+  "exclude": ["../../node_modules", "../../tmp"]
+}

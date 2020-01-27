@@ -83,6 +83,14 @@
           {
             "sourceTag": "scope:typed-urls",
             "onlyDependOnLibsWithTags": ["scope:shared", "scope:typed-urls"]
+          },
+          {
+            "sourceTag": "scope:linking-tool",
+            "onlyDependOnLibsWithTags": ["scope:shared", "scope:linking-tool"]
+          },
+          {
+            "sourceTag": "scope:translations-finder",
+            "onlyDependOnLibsWithTags": ["scope:shared", "scope:translations-finder"]
           }
         ]
       }
