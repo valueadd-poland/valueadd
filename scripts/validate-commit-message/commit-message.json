@@ -2,6 +2,7 @@
   "maxLength": 100,
   "types": ["build", "ci", "docs", "feat", "fix", "perf", "refactor", "chore", "style", "test"],
   "scopes": [
+    "deps",
     "common",
     "testing",
     "core",
