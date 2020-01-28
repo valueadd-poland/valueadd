@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.6.0](https://patryk.zielinski93.github.com/valueadd-poland/valueadd/compare/v2.5.2...v2.6.0) (2020-01-28)
+
+
+### Features
+
+* **validation-messages:** remove memoizee dependency ([b96dec9](https://patryk.zielinski93.github.com/valueadd-poland/valueadd/commit/b96dec91989541771524de1337bd34ca684aca5f))
+
+
+### Bug Fixes
+
+* **validation-messages:** fix install command in readme ([154b460](https://patryk.zielinski93.github.com/valueadd-poland/valueadd/commit/154b460f85b129c5bf0163c9e85555346510c2fc))
+
 ### [2.5.2](https://patryk.zielinski93.github.com/valueadd-poland/valueadd/compare/v2.5.1...v2.5.2) (2020-01-20)
 
 
