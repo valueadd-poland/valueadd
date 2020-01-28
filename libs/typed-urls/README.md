@@ -1,25 +1,123 @@
-# TypedUrls
+# Typed Urls
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.0.
+Library for strong-typed URLs. This library is using a [query-string](https://www.npmjs.com/package/query-string) library as a dependency, to serialize query params in URLs.
 
-## Code scaffolding
+Table of contents
+-
+1. Common models:
+    - `Url` - representing URL
+    - `InterpolatableUrl` - representing URL, which can be parametrized
+    - `Params` - representing URL's params
+2. URL Factory
+3. Examples
 
-Run `ng generate component component-name --project typed-urls` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project typed-urls`.
+Common models
+-
+### Url
+#### Properties:
+- `url` - URL address
 
-> Note: Don't forget to add `--project typed-urls` or else it will be added to the default project in your `angular.json` file.
+#### Methods:
+- `url()` - returns URL address
 
-## Build
+#### Source code:
+```
+export class Url {
+    constructor(private _url: string) {}
 
-Run `ng build typed-urls` to build the project. The build artifacts will be stored in the `dist/` directory.
+    url(): string {
+      return this._url;
+    }
+}
+```
 
-## Publishing
+### InterpolatableUrl
+#### Properties:
+- `apiUrl` - URL address
+- `arrayFormatType` (optional) - used to serialize query params; passed via injection token `ARRAY_FORMAT_TYPE` with possible values:
+    - `ArrayFormatType.Bracket` - example output: `foo[]=1&foo[]=2`,
+    - `ArrayFormatType.Comma` - example output: `foo=1,2`,
+    - `ArrayFormatType.Index` - example output: `foo[0]=1&foo[1]=2`,
+    - `ArrayFormatType.None` (default value) - example output: `foo=1&foo=2`
+    
+#### Methods:
+- `fragment(params: Record<'fragment', string>): NavigationExtras` - returns fragment of URL if passed via params
+- `url(params: Record<T['urlParams'], string>): string` - returns URL address, which can be interpolated
+- `query(params: { [key in keyof Record<T['queryParams'], string>]: QueryParam }): NavigationExtras` - returns query params of URL
 
-After building your library with `ng build typed-urls`, go to the dist folder `cd dist/typed-urls` and run `npm publish`.
+Note that used `NavigationExtras` interface comes from `@angular/router`.
 
-## Running unit tests
+#### Source code:
+```
+constructor(
+    private apiUrl: string,
+    @Inject(ARRAY_FORMAT_TYPE)
+    @Optional()
+    private arrayFormatType: ArrayFormatType = ArrayFormatType.None
+  ) {}
 
-Run `ng test typed-urls` to execute the unit tests via [Karma](https://karma-runner.github.io).
+  fragment(params: Record<'fragment', string>): NavigationExtras {
+    return FragmentUtil.fragment(params);
+  }
 
-## Further help
+  url(params: Record<T['urlParams'], string>): string {
+    return interpolate(this.apiUrl, params);
+  }
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+  query(params: { [key in keyof Record<T['queryParams'], string>]: QueryParam }): NavigationExtras {
+    return QueryUtil.query(params, this.arrayFormatType);
+  }
+```
+
+### Params
+#### Properties:
+- `urlParams` - keys to interpolate URL
+- `fragment` (optional) - fragment keys
+- `queryParams` (optional) - query params keys
+
+#### Source code:
+```
+export interface Params {
+  urlParams: string;
+  fragment?: string;
+  queryParams?: string;
+}
+```
+
+URL Factory
+-
+Factory is used to generate urls. Following overloads are available:
+1. `urlFactory(url: string, interpolatable?: false): Url`
+    - params:
+        - `url` - url address, which can be interpolated
+        - `interpolatable` - boolean value, used to decide if URL value should be interpolated. Default `false`. 
+    - returned value: an `Url` object
+    
+2. `urlFactory<T extends Params>(url: string, interpolatable: true): InterpolatableUrl<T>`
+    - params:
+        - `T extends Params` - generic type defining params for an URL
+        - `url` - URL address, which can be interpolated
+
+Examples
+-
+#### Initialization
+First import `TypedUrlsModule` in root of your project, and call `forRoot()` method.
+```
+NgModule({
+  imports: [
+    TypedUrlsModule.forRoot()
+  ]
+})
+export class AppModule {}
+```
+Then you can use this like the following:
+```
+const googleUrl = urlFactory('http://google.com');
+console.log(googleUrl.url()); // prints "http://google.com"
+
+const googleUrlWithFragment = urlFactory<{fragment: "true"}>('http://google.com');
+console.log(googleUrlWithFragment.fragment({fragment: 'someFragment'})); // prints "NavigationExtras {fragment: 'someFragment'}"
+
+const googleUrlWithQuery = urlFactory<{queryParams: "param1" | "param2"}>('http://google.com');
+console.log(googleUrlWithQuery.query({param1: [1, 2], param2: "test"}));   // prints "NavigationExtras {params: {param1: [1, 2], param2: "test"}}"
+```
