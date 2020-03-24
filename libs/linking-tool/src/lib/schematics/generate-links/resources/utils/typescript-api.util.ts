@@ -15,6 +15,7 @@ import {
 } from 'ts-morph';
 import { GenerateLinksProperty } from '../enums/generate-links-property.enum';
 import { CommonUtil } from './common.util';
+import { ArrowFunctionThenBodyWithArguments } from '../interfaces/arrow-function-then-body-with-arguments.interface';
 
 export class TypescriptApiUtil {
   static getArrayExpression(expression: Expression): Expression[] {
@@ -27,14 +28,15 @@ export class TypescriptApiUtil {
     ).getElements();
   }
 
-  static getThenValueFromImportArrowFunction(arrowFunction: ArrowFunction): string {
+  static getArrowFunctionThenBodyWithArguments(arrowFunction: ArrowFunction): ArrowFunctionThenBodyWithArguments {
     const callExpression = TypescriptApiUtil.getCallExpressionFromArrowFunction(arrowFunction);
     const propertyAccessExpression = TypescriptApiUtil.getPropertyAccessExpressionFromArrowFunction(
       arrowFunction
     );
     const modulePath = TypescriptApiUtil.getCallExpressionArguments(
       propertyAccessExpression.getExpression() as CallExpression
-    );
+    )
+      .map(node => node.getText())
     const importThenArguments = TypescriptApiUtil.getCallExpressionArguments(callExpression);
 
     if (!importThenArguments || !importThenArguments.length) {
@@ -50,7 +52,10 @@ export class TypescriptApiUtil {
     }
 
     const thenBody = (importThenArrowFunction as ArrowFunction).getBody() as PropertyAccessExpression;
-    return `${modulePath}/${thenBody.getNameNode().getText()}`;
+    return {
+      thenBody: thenBody.getNameNode().getText(),
+      functionArguments: modulePath
+    };
   }
 
   static getObjectLiteralExpression(

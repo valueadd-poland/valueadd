@@ -26,7 +26,6 @@ export class GenerateLinksService {
       .filter(CommonUtil.isValidRoutingModule)
       .forEach(source => {
         const routeDeclarations = DataProvider.getRouteDeclarations(source);
-        console.log(routeDeclarations);
         this.resolveLink('', routeDeclarations);
       });
 
@@ -65,15 +64,23 @@ export class GenerateLinksService {
       }
 
       if (RouteUtil.hasLoadChildren(route)) {
-        const childrenModule = this.project.getSourceFile(route.loadChildren);
+        // @TODO improve when 2 same files in project
+        const childrenModules = this.project.getSourceFile(route.loadChildren.moduleName);
 
-        if (!childrenModule) {
-          throw new Error(`Child module ${route.loadChildren} not found!`);
+        // console.log(JSON.stringify(childrenModules));
+
+        // if (childrenModules.length > 1) {
+        //   console.log("Found 2 same modules, path: ", route.loadChildren.path);
+        //   console.log("Dirs: ", childrenModules.map(m => m.getDirectoryPath()));
+        // }
+
+        if (!childrenModules) {
+          throw new Error(`Child module ${route.loadChildren.moduleName} not found!`);
         }
 
         this.resolveLink(
           pathFromRoot.concat(path),
-          DataProvider.getRouteDeclarations(childrenModule as SourceFile),
+          DataProvider.getRouteDeclarations(childrenModules[0] as SourceFile),
           RouteUtil.getParentLinkTypesForRoute(parentLinkTypes, route)
         );
       }

@@ -2,6 +2,7 @@ import { ArrowFunction, ObjectLiteralExpression, PropertyAssignment, SourceFile 
 import { GenerateLinksProperty } from '../enums/generate-links-property.enum';
 import { RouteDeclaration } from '../interfaces/route-declaration.interface';
 import { TypescriptApiUtil } from '../utils/typescript-api.util';
+import { LoadChildren } from '../interfaces/load-children.interface';
 
 export class DataProvider {
   static getRouteDeclarations(source: SourceFile): RouteDeclaration[] {
@@ -48,7 +49,7 @@ export class DataProvider {
     return TypescriptApiUtil.getStringValue(propertyAssignment);
   }
 
-  private static resolveLoadChildren(object: ObjectLiteralExpression): string {
+  private static resolveLoadChildren(object: ObjectLiteralExpression): LoadChildren {
     const loadChildrenAssignment = TypescriptApiUtil.getPropertyAssignment(
       GenerateLinksProperty.LoadChildren,
       object
@@ -67,7 +68,7 @@ export class DataProvider {
 
   private static resolveLoadChildrenFromStringImport(
     loadChildrenAssignment: PropertyAssignment
-  ): string {
+  ): LoadChildren {
     const [path, lazyLoadedModuleName] = TypescriptApiUtil.getStringValue(
       loadChildrenAssignment
     ).split('#');
@@ -76,7 +77,12 @@ export class DataProvider {
       throw new Error(`Bad path detected: ${path} when resolving loadChildren for module.`);
     }
 
-    return `${path}/${DataProvider.resolveRoutingModuleName(lazyLoadedModuleName)}`;
+    const splittedPath = path.split('/').filter(el => el !== '.' && el.indexOf('.module') === -1);
+
+    return {
+      moduleName: DataProvider.resolveRoutingModuleName(lazyLoadedModuleName),
+      path: splittedPath.join('/')
+    };
   }
 
   private static resolveRoutingModuleName(moduleName: string): string {
@@ -90,16 +96,19 @@ export class DataProvider {
 
   private static resolveLoadChildrenFromDynamicImport(
     loadChildrenAssignment: PropertyAssignment
-  ): string {
-    const lazyLoadedModulePath = TypescriptApiUtil.getThenValueFromImportArrowFunction(
+  ): LoadChildren {
+    const { thenBody, functionArguments } = TypescriptApiUtil.getArrowFunctionThenBodyWithArguments(
       loadChildrenAssignment.getInitializer() as ArrowFunction
-    )
-      .split(/([A-Z]?[^A-Z]*)/g)
-      .filter(word => !!word);
-    return lazyLoadedModulePath
-      .map(word => word.toLowerCase())
-      .join('-')
-      .concat('-routing.module.ts');
+    );
+    return {
+      moduleName: thenBody
+        .split(/([A-Z]?[^A-Z]*)/g)
+        .filter(word => !!word)
+        .map(word => word.toLowerCase())
+        .join('-')
+        .concat('-routing.module.ts'),
+      path: functionArguments.join('')
+    };
   }
 
   private static resolvePath(object: ObjectLiteralExpression): string {
