@@ -64,23 +64,20 @@ export class GenerateLinksService {
       }
 
       if (RouteUtil.hasLoadChildren(route)) {
-        // @TODO improve when 2 same files in project
-        const childrenModules = this.project.getSourceFile(route.loadChildren.moduleName);
+        const childrenModule = this.project.getSourceFile(f => {
+          return (
+            f.getBaseName() === route.loadChildren.moduleName &&
+            f.getDirectoryPath().indexOf(route.loadChildren.path) !== -1
+          );
+        });
 
-        // console.log(JSON.stringify(childrenModules));
-
-        // if (childrenModules.length > 1) {
-        //   console.log("Found 2 same modules, path: ", route.loadChildren.path);
-        //   console.log("Dirs: ", childrenModules.map(m => m.getDirectoryPath()));
-        // }
-
-        if (!childrenModules) {
+        if (!childrenModule) {
           throw new Error(`Child module ${route.loadChildren.moduleName} not found!`);
         }
 
         this.resolveLink(
           pathFromRoot.concat(path),
-          DataProvider.getRouteDeclarations(childrenModules[0] as SourceFile),
+          DataProvider.getRouteDeclarations(childrenModule as SourceFile),
           RouteUtil.getParentLinkTypesForRoute(parentLinkTypes, route)
         );
       }

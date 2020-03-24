@@ -3,7 +3,6 @@ import {
   ArrowFunction,
   CallExpression,
   Expression,
-  Identifier,
   Node,
   ObjectLiteralExpression,
   PropertyAccessExpression,
@@ -28,15 +27,15 @@ export class TypescriptApiUtil {
     ).getElements();
   }
 
-  static getArrowFunctionThenBodyWithArguments(arrowFunction: ArrowFunction): ArrowFunctionThenBodyWithArguments {
+  static getArrowFunctionThenBodyWithArguments(
+    arrowFunction: ArrowFunction
+  ): ArrowFunctionThenBodyWithArguments {
     const callExpression = TypescriptApiUtil.getCallExpressionFromArrowFunction(arrowFunction);
-    const propertyAccessExpression = TypescriptApiUtil.getPropertyAccessExpressionFromArrowFunction(
-      arrowFunction
-    );
+
     const modulePath = TypescriptApiUtil.getCallExpressionArguments(
-      propertyAccessExpression.getExpression() as CallExpression
-    )
-      .map(node => node.getText())
+      (callExpression.getExpression() as PropertyAccessExpression).getExpression() as CallExpression
+    ).map(node => node.getText());
+
     const importThenArguments = TypescriptApiUtil.getCallExpressionArguments(callExpression);
 
     if (!importThenArguments || !importThenArguments.length) {

@@ -6,6 +6,10 @@ import { LoadChildren } from '../interfaces/load-children.interface';
 
 export class DataProvider {
   static getRouteDeclarations(source: SourceFile): RouteDeclaration[] {
+    if (!source) {
+      throw new Error('Using method to resolve route declarations with no file!');
+    }
+
     if (
       TypescriptApiUtil.isVariableDeclarationExisting(GenerateLinksProperty.Routes, source) &&
       TypescriptApiUtil.isArrayExpression(
@@ -77,7 +81,11 @@ export class DataProvider {
       throw new Error(`Bad path detected: ${path} when resolving loadChildren for module.`);
     }
 
-    const splittedPath = path.split('/').filter(el => el !== '.' && el.indexOf('.module') === -1);
+    const splittedPath = path
+      .split('/')
+      .filter(
+        el => el !== '.' && el !== '..' && el.indexOf('.module') === -1 && !el.startsWith('@')
+      );
 
     return {
       moduleName: DataProvider.resolveRoutingModuleName(lazyLoadedModuleName),
@@ -100,6 +108,7 @@ export class DataProvider {
     const { thenBody, functionArguments } = TypescriptApiUtil.getArrowFunctionThenBodyWithArguments(
       loadChildrenAssignment.getInitializer() as ArrowFunction
     );
+
     return {
       moduleName: thenBody
         .split(/([A-Z]?[^A-Z]*)/g)
@@ -107,7 +116,12 @@ export class DataProvider {
         .map(word => word.toLowerCase())
         .join('-')
         .concat('-routing.module.ts'),
-      path: functionArguments.join('')
+      path: functionArguments
+        .map(el => el.replace(/['"]+/g, ''))
+        .join('')
+        .split('/')
+        .filter(el => !el.startsWith('@'))
+        .join('/')
     };
   }
 
