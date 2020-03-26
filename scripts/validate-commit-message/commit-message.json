@@ -3,6 +3,7 @@
   "types": ["build", "ci", "docs", "feat", "fix", "perf", "refactor", "chore", "style", "test"],
   "scopes": [
     "deps",
+    "devkit",
     "common",
     "testing",
     "core",
