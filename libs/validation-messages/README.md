@@ -6,7 +6,7 @@
 
 ### 1. Import ValidationMessagesModule
 
-Import ValidationMessagesModule in the module of your application you'd like to use ng-validation-messages component.
+Import ValidationMessagesModule in the module of your application you'd like to use va-validation-messages component.
 
 ```
 @NgModule({
@@ -77,8 +77,8 @@ this.validationMessagesService.setValidationMessages(validationMessagesConfig);
 Now, in some component's template, instantiate ValidationMessagesComponent and pass it a Form Control with validators attached to it:
 
 ```
-<ng-validation-messages [control]="emailControl">
-</ng-validation-messages>
+<va-validation-messages [control]="emailControl">
+</va-validation-messages>
 ```
 
 # 3. API
