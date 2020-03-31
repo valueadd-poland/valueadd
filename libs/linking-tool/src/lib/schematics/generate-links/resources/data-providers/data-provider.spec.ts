@@ -136,8 +136,23 @@ describe('DataProvider', () => {
   });
 
   describe('resolveRouteDeclaration', () => {
+    let project: Project;
+    let dataProvider: DataProvider;
+
+    beforeEach(() => {
+      project = new Project({ useVirtualFileSystem: true });
+      dataProvider = new DataProvider();
+      dataProvider.setProject(project);
+    });
+
     it('returns an array with linkType enum value when data.links passed as an array', () => {
+      const en = `
+      export enum LinkType {
+        test: 'test'
+      }`;
       const file = `
+      import { LinkType } from './link-type.enum';
+
       export const routes = [
         {
           path: '',
@@ -146,9 +161,10 @@ describe('DataProvider', () => {
           }
         }
       ];`;
-      const project = new Project({ useVirtualFileSystem: true });
       const sourceFile = project.createSourceFile('file.ts', file);
+      const enumFile = project.createSourceFile('link-type.enum.ts', en);
       sourceFile.saveSync();
+      enumFile.saveSync();
 
       const routesExpression = sourceFile
         .getVariableDeclaration(GenerateLinksProperty.Routes)
@@ -167,8 +183,12 @@ describe('DataProvider', () => {
     });
 
     it('returns an array with linkType enum value when data.links passed as pure value', () => {
-      const file = `
-      import { LinkType } from '@aaa/test';
+      const en = `
+      export enum LinkType {
+        test: 'test'
+      }`;
+      const source = `
+      import { LinkType } from './link-type.enum';
 
       export const routes = [
         {
@@ -178,9 +198,10 @@ describe('DataProvider', () => {
           }
         }
       ];`;
-      const project = new Project({ useVirtualFileSystem: true });
-      const sourceFile = project.createSourceFile('file.ts', file);
+      const sourceFile = project.createSourceFile('file.ts', source);
+      const enumFile = project.createSourceFile('link-type.enum.ts', en);
       sourceFile.saveSync();
+      enumFile.saveSync();
 
       const routesExpression = sourceFile
         .getVariableDeclaration(GenerateLinksProperty.Routes)
@@ -191,7 +212,7 @@ describe('DataProvider', () => {
       ).filter(TypescriptApiUtil.isObjectLiteralExpression) as ObjectLiteralExpression[];
 
       expect(
-        (new DataProvider() as any).resolveRouteDeclaration(
+        (dataProvider as any).resolveRouteDeclaration(
           objectLiteralExpression,
           sourceFile.getImportDeclarations()
         )

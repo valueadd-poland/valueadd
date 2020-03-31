@@ -1,5 +1,6 @@
 import {
   ArrowFunction,
+  Expression,
   ImportDeclaration,
   ObjectLiteralExpression,
   Project,
@@ -210,19 +211,44 @@ export class DataProvider {
     object: ObjectLiteralExpression,
     imports: ImportDeclaration[]
   ): string {
-    const linkType = this.resolveData(
+    const [linkTypeEnumName, linkTypeEnumKey] = this.resolveData(
       TypescriptApiUtil.getObjectLiteralExpression(GenerateLinksProperty.Data, object)
-    );
-
-    const collectedImports: string[] = [];
+    ).split('.');
 
     imports.forEach(declaration => {
       const moduleSpecifier = declaration.getModuleSpecifier().getText();
-      const namedImport = declaration.getNamedImports().map(nimp => nimp.getText());
+      const importedFiles = declaration.getNamedImports().map(nimp => nimp.getText());
 
-      const existingImport = namedImport.find(imp => imp === linkType.split('.')[0]);
+      const linkTypeEnum = importedFiles.find(imp => imp === linkTypeEnumName);
+      if (linkTypeEnum) {
+        const file =
+          this.project.getSourceFile(`${moduleSpecifier}/${linkTypeEnum}`) ||
+          this.project.getSourceFile(linkTypeEnum);
+        if (!file) {
+          throw new Error(
+            `Tried to find enum ${linkTypeEnumName} with path ${moduleSpecifier}, but did not success.`
+          );
+        }
+
+        const enumsInFile = file.getEnums();
+        if (!enumsInFile) {
+          throw Error('Tried to find file with enum but not-enum file found.');
+        }
+
+        const searchedEnumWithValue = enumsInFile.find(en => en.getMember(linkTypeEnumKey));
+        if (!searchedEnumWithValue) {
+          throw new Error(
+            `Tried to find an enum ${linkTypeEnum}.${linkTypeEnumKey} value, but did not success.`
+          );
+        }
+
+        return (searchedEnumWithValue
+          .getMember(linkTypeEnumKey)
+          .getInitializer() as Expression).getText();
+      }
     });
 
-    return linkType;
+    console.warn(`No imported enum found (searched for ${linkTypeEnumName}).`);
+    return '';
   }
 }
