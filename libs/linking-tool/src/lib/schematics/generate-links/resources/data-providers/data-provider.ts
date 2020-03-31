@@ -1,11 +1,24 @@
-import { ArrowFunction, ObjectLiteralExpression, PropertyAssignment, SourceFile } from 'ts-morph';
+import {
+  ArrowFunction,
+  ImportDeclaration,
+  ObjectLiteralExpression,
+  Project,
+  PropertyAccessExpression,
+  PropertyAssignment,
+  SourceFile
+} from 'ts-morph';
 import { GenerateLinksProperty } from '../enums/generate-links-property.enum';
 import { RouteDeclaration } from '../interfaces/route-declaration.interface';
 import { TypescriptApiUtil } from '../utils/typescript-api.util';
 import { LoadChildren } from '../interfaces/load-children.interface';
 
 export class DataProvider {
-  static getRouteDeclarations(source: SourceFile): RouteDeclaration[] {
+  private project: Project = null;
+
+  getRouteDeclarations(source: SourceFile): RouteDeclaration[] {
+    if (!this.project) {
+      throw new Error('Using data provider without access to a project!');
+    }
     if (!source) {
       throw new Error('Using method to resolve route declarations with no file!');
     }
@@ -19,26 +32,38 @@ export class DataProvider {
       const routesExpression = source
         .getVariableDeclaration(GenerateLinksProperty.Routes)
         .getInitializer();
+      const imports = source.getImportDeclarations();
 
       return TypescriptApiUtil.getArrayExpression(routesExpression)
         .filter(TypescriptApiUtil.isObjectLiteralExpression)
         .map(expression =>
-          DataProvider.resolveRouteDeclaration(expression as ObjectLiteralExpression)
+          this.resolveRouteDeclaration(expression as ObjectLiteralExpression, imports)
         );
     }
 
     return [];
   }
 
-  private static resolveChildren(object: ObjectLiteralExpression): RouteDeclaration[] {
+  setProject(project: Project): void {
+    this.project = project;
+  }
+
+  private getLinkTypeValue(linkType: PropertyAccessExpression): string {
+    return `${linkType.getExpression().getText()}.${linkType.getName()}`;
+  }
+
+  private resolveChildren(
+    object: ObjectLiteralExpression,
+    imports: ImportDeclaration[]
+  ): RouteDeclaration[] {
     return TypescriptApiUtil.getArrayValue(
       TypescriptApiUtil.getPropertyAssignment(GenerateLinksProperty.Children, object)
     ).map(expression =>
-      DataProvider.resolveRouteDeclaration(expression as ObjectLiteralExpression)
+      this.resolveRouteDeclaration(expression as ObjectLiteralExpression, imports)
     );
   }
 
-  private static resolveData(object: ObjectLiteralExpression): string {
+  private resolveData(object: ObjectLiteralExpression): string {
     const propertyAssignment = TypescriptApiUtil.getPropertyAssignment(
       GenerateLinksProperty.Links,
       object
@@ -46,14 +71,19 @@ export class DataProvider {
 
     if (TypescriptApiUtil.isArrayValue(propertyAssignment)) {
       // links passed as an array
-      const linksArray = TypescriptApiUtil.getArrayValue(propertyAssignment);
-      return !!linksArray.length ? TypescriptApiUtil.getPropertyName(linksArray[0]) : '';
+      const [link] = TypescriptApiUtil.getArrayValue(propertyAssignment);
+
+      if (!link) {
+        return '';
+      }
+
+      return this.getLinkTypeValue(link as PropertyAccessExpression);
     }
 
-    return TypescriptApiUtil.getStringValue(propertyAssignment);
+    return this.getLinkTypeValue(propertyAssignment.getInitializer() as PropertyAccessExpression);
   }
 
-  private static resolveLoadChildren(object: ObjectLiteralExpression): LoadChildren {
+  private resolveLoadChildren(object: ObjectLiteralExpression): LoadChildren {
     const loadChildrenAssignment = TypescriptApiUtil.getPropertyAssignment(
       GenerateLinksProperty.LoadChildren,
       object
@@ -61,16 +91,16 @@ export class DataProvider {
 
     if (TypescriptApiUtil.isStringLiteral(loadChildrenAssignment)) {
       // lazy loaded module import till v7
-      return DataProvider.resolveLoadChildrenFromStringImport(loadChildrenAssignment);
+      return this.resolveLoadChildrenFromStringImport(loadChildrenAssignment);
     }
 
     if (TypescriptApiUtil.isArrowFunction(loadChildrenAssignment)) {
       // lazy loaded module import from v8 and Ivy
-      return DataProvider.resolveLoadChildrenFromDynamicImport(loadChildrenAssignment);
+      return this.resolveLoadChildrenFromDynamicImport(loadChildrenAssignment);
     }
   }
 
-  private static resolveLoadChildrenFromStringImport(
+  private resolveLoadChildrenFromStringImport(
     loadChildrenAssignment: PropertyAssignment
   ): LoadChildren {
     const [path, lazyLoadedModuleName] = TypescriptApiUtil.getStringValue(
@@ -88,12 +118,12 @@ export class DataProvider {
       );
 
     return {
-      moduleName: DataProvider.resolveRoutingModuleName(lazyLoadedModuleName),
+      moduleName: this.resolveRoutingModuleName(lazyLoadedModuleName),
       path: splittedPath.join('/')
     };
   }
 
-  private static resolveRoutingModuleName(moduleName: string): string {
+  private resolveRoutingModuleName(moduleName: string): string {
     return moduleName
       .split(/(?=[A-Z])/)
       .map(word => word.toLowerCase())
@@ -102,7 +132,7 @@ export class DataProvider {
       .concat('-routing.module.ts');
   }
 
-  private static resolveLoadChildrenFromDynamicImport(
+  private resolveLoadChildrenFromDynamicImport(
     loadChildrenAssignment: PropertyAssignment
   ): LoadChildren {
     const { thenBody, functionArguments } = TypescriptApiUtil.getArrowFunctionThenBodyWithArguments(
@@ -125,13 +155,16 @@ export class DataProvider {
     };
   }
 
-  private static resolvePath(object: ObjectLiteralExpression): string {
+  private resolvePath(object: ObjectLiteralExpression): string {
     return TypescriptApiUtil.getStringValue(
       TypescriptApiUtil.getPropertyAssignment(GenerateLinksProperty.Path, object)
     );
   }
 
-  private static resolveRouteDeclaration(object: ObjectLiteralExpression): RouteDeclaration {
+  private resolveRouteDeclaration(
+    object: ObjectLiteralExpression,
+    imports: ImportDeclaration[]
+  ): RouteDeclaration {
     let result: RouteDeclaration = {
       path: ''
     };
@@ -139,21 +172,21 @@ export class DataProvider {
     if (TypescriptApiUtil.isPropertyExisting(GenerateLinksProperty.Path, object)) {
       result = {
         ...result,
-        path: DataProvider.resolvePath(object)
+        path: this.resolvePath(object)
       };
     }
 
     if (TypescriptApiUtil.isPropertyExisting(GenerateLinksProperty.Children, object)) {
       result = {
         ...result,
-        children: DataProvider.resolveChildren(object)
+        children: this.resolveChildren(object, imports)
       };
     }
 
     if (TypescriptApiUtil.isPropertyExisting(GenerateLinksProperty.LoadChildren, object)) {
       result = {
         ...result,
-        loadChildren: DataProvider.resolveLoadChildren(object)
+        loadChildren: this.resolveLoadChildren(object)
       };
     }
 
@@ -166,12 +199,30 @@ export class DataProvider {
     ) {
       result = {
         ...result,
-        linkType: DataProvider.resolveData(
-          TypescriptApiUtil.getObjectLiteralExpression(GenerateLinksProperty.Data, object)
-        )
+        linkType: this.resolveLinkTypeValue(object, imports)
       };
     }
 
     return result;
+  }
+
+  private resolveLinkTypeValue(
+    object: ObjectLiteralExpression,
+    imports: ImportDeclaration[]
+  ): string {
+    const linkType = this.resolveData(
+      TypescriptApiUtil.getObjectLiteralExpression(GenerateLinksProperty.Data, object)
+    );
+
+    const collectedImports: string[] = [];
+
+    imports.forEach(declaration => {
+      const moduleSpecifier = declaration.getModuleSpecifier().getText();
+      const namedImport = declaration.getNamedImports().map(nimp => nimp.getText());
+
+      const existingImport = namedImport.find(imp => imp === linkType.split('.')[0]);
+    });
+
+    return linkType;
   }
 }

@@ -9,6 +9,7 @@ import { ResultType } from '../resources/enums/result-type.enum';
 import { UrlKey } from '../../../shared/consts/url-key.const';
 
 export class GenerateLinksService {
+  private dataProvider: DataProvider = new DataProvider();
   private linksMap: LinkTypeMap = {};
   private linksTree: LinkTypeTree = {};
   private project: Project;
@@ -25,7 +26,7 @@ export class GenerateLinksService {
       .getSourceFiles()
       .filter(CommonUtil.isValidRoutingModule)
       .forEach(source => {
-        const routeDeclarations = DataProvider.getRouteDeclarations(source);
+        const routeDeclarations = this.dataProvider.getRouteDeclarations(source);
         this.resolveLink('', routeDeclarations);
       });
 
@@ -41,6 +42,8 @@ export class GenerateLinksService {
   private initProject(): void {
     this.project = new Project();
     this.project.addExistingSourceFiles('./**/*-routing.module.ts');
+    this.project.addExistingSourceFiles('./**.json');
+    this.dataProvider.setProject(this.project);
   }
 
   private resolveLink(
@@ -77,7 +80,7 @@ export class GenerateLinksService {
 
         this.resolveLink(
           pathFromRoot.concat(path),
-          DataProvider.getRouteDeclarations(childrenModule as SourceFile),
+          this.dataProvider.getRouteDeclarations(childrenModule as SourceFile),
           RouteUtil.getParentLinkTypesForRoute(parentLinkTypes, route)
         );
       }

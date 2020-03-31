@@ -7,15 +7,15 @@ import { GenerateLinksProperty } from '../enums/generate-links-property.enum';
 describe('DataProvider', () => {
   describe('resolveRoutingModuleName', () => {
     it('should return valid routing module file name', () => {
-      expect((DataProvider as any).resolveRoutingModuleName('SimpleModule')).toContain(
+      expect((new DataProvider() as any).resolveRoutingModuleName('SimpleModule')).toContain(
         'simple-routing.module'
       );
     });
     it('should return routing module file name with TS extension', () => {
-      expect((DataProvider as any).resolveRoutingModuleName('SimpleModule')).toContain('.ts');
+      expect((new DataProvider() as any).resolveRoutingModuleName('SimpleModule')).toContain('.ts');
     });
     it('should be case sensitive', () => {
-      expect((DataProvider as any).resolveRoutingModuleName('SiMpleMoDUle')).not.toBe(
+      expect((new DataProvider() as any).resolveRoutingModuleName('SiMpleMoDUle')).not.toBe(
         'simple-routing.module.ts'
       );
     });
@@ -52,13 +52,13 @@ describe('DataProvider', () => {
       ).filter(TypescriptApiUtil.isObjectLiteralExpression) as ObjectLiteralExpression[];
 
       expect(
-        (DataProvider as any).resolveData(
+        (new DataProvider() as any).resolveData(
           TypescriptApiUtil.getObjectLiteralExpression(
             GenerateLinksProperty.Data,
             objectLiteralExpression
           )
         )
-      ).toEqual('testLink');
+      ).toEqual('LinkType.testLink');
     });
   });
 
@@ -84,7 +84,7 @@ describe('DataProvider', () => {
       ).filter(TypescriptApiUtil.isObjectLiteralExpression) as ObjectLiteralExpression[];
 
       expect(
-        (DataProvider as any).resolveLoadChildrenFromStringImport(
+        (new DataProvider() as any).resolveLoadChildrenFromStringImport(
           TypescriptApiUtil.getPropertyAssignment(
             GenerateLinksProperty.LoadChildren,
             objectLiteralExpression
@@ -122,7 +122,7 @@ describe('DataProvider', () => {
       ).filter(TypescriptApiUtil.isObjectLiteralExpression) as ObjectLiteralExpression[];
 
       expect(
-        (DataProvider as any).resolveLoadChildrenFromDynamicImport(
+        (new DataProvider() as any).resolveLoadChildrenFromDynamicImport(
           TypescriptApiUtil.getPropertyAssignment(
             GenerateLinksProperty.LoadChildren,
             objectLiteralExpression
@@ -131,6 +131,73 @@ describe('DataProvider', () => {
       ).toEqual({
         moduleName: 'admin-customer-customers-feature-module-routing.module.ts',
         path: 'admin/customer/customers/feature'
+      });
+    });
+  });
+
+  describe('resolveRouteDeclaration', () => {
+    it('returns an array with linkType enum value when data.links passed as an array', () => {
+      const file = `
+      export const routes = [
+        {
+          path: '',
+          data: {
+            links: [LinkType.test]
+          }
+        }
+      ];`;
+      const project = new Project({ useVirtualFileSystem: true });
+      const sourceFile = project.createSourceFile('file.ts', file);
+      sourceFile.saveSync();
+
+      const routesExpression = sourceFile
+        .getVariableDeclaration(GenerateLinksProperty.Routes)
+        .getInitializer();
+
+      const [objectLiteralExpression] = TypescriptApiUtil.getArrayExpression(
+        routesExpression
+      ).filter(TypescriptApiUtil.isObjectLiteralExpression) as ObjectLiteralExpression[];
+
+      expect(
+        (new DataProvider() as any).resolveRouteDeclaration(objectLiteralExpression, [])
+      ).toEqual({
+        path: '',
+        linkType: 'LinkType.test'
+      });
+    });
+
+    it('returns an array with linkType enum value when data.links passed as pure value', () => {
+      const file = `
+      import { LinkType } from '@aaa/test';
+
+      export const routes = [
+        {
+          path: '',
+          data: {
+            links: LinkType.test
+          }
+        }
+      ];`;
+      const project = new Project({ useVirtualFileSystem: true });
+      const sourceFile = project.createSourceFile('file.ts', file);
+      sourceFile.saveSync();
+
+      const routesExpression = sourceFile
+        .getVariableDeclaration(GenerateLinksProperty.Routes)
+        .getInitializer();
+
+      const [objectLiteralExpression] = TypescriptApiUtil.getArrayExpression(
+        routesExpression
+      ).filter(TypescriptApiUtil.isObjectLiteralExpression) as ObjectLiteralExpression[];
+
+      expect(
+        (new DataProvider() as any).resolveRouteDeclaration(
+          objectLiteralExpression,
+          sourceFile.getImportDeclarations()
+        )
+      ).toEqual({
+        path: '',
+        linkType: 'LinkType.test'
       });
     });
   });
