@@ -24,7 +24,7 @@ export const info = (msg: string) => {
   console.log(chalk.blue(msg));
 };
 
-export const msg = (msg: string) => {
+export const message = (msg: string) => {
   console.log(chalk.white(msg));
 };
 
