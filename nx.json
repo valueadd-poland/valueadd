@@ -28,6 +28,9 @@
     },
     "translations-finder": {
       "tags": ["scope:translations-finder", "type:feature", "platform:desktop"]
+    },
+    "devkit-builders-ng-packagr-schematics": {
+      "tags": ["scope:ng-packagr-schematics, type:feature, platform:desktop"]
     }
   }
 }

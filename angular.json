@@ -188,9 +188,10 @@
       "prefix": "valueadd",
       "architect": {
         "build": {
-          "builder": "./libs/devkit/builders/build-ng-packagr-and-schematics:build",
+          "builder": "@valueadd/ng-packagr-schematics:build",
           "options": {
-            "tsConfig": "libs/linking-tool/tsconfig.lib.json",
+            "tsConfigRuntime": "libs/linking-tool/tsconfig.lib.json",
+            "tsConfigSchematics": "libs/linking-tool/tsconfig.lib.json",
             "project": "libs/linking-tool/ng-package.json"
           }
         },
@@ -252,6 +253,49 @@
         }
       },
       "schematics": {}
+    },
+    "devkit-builders-ng-packagr-schematics": {
+      "root": "libs/devkit/builders/ng-packagr-schematics",
+      "sourceRoot": "libs/devkit/builders/ng-packagr-schematics/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/devkit/builders/ng-packagr-schematics/tsconfig.lib.json",
+              "libs/devkit/builders/ng-packagr-schematics/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/devkit/builders/ng-packagr-schematics/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/devkit/builders/ng-packagr-schematics/jest.config.js",
+            "tsConfig": "libs/devkit/builders/ng-packagr-schematics/tsconfig.spec.json"
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/devkit/builders/ng-packagr-schematics",
+            "tsConfig": "libs/devkit/builders/ng-packagr-schematics/tsconfig.lib.json",
+            "packageJson": "libs/devkit/builders/ng-packagr-schematics/package.json",
+            "main": "libs/devkit/builders/ng-packagr-schematics/src/index.ts",
+            "assets": [
+              "libs/devkit/builders/ng-packagr-schematics/*.md",
+              "libs/devkit/builders/ng-packagr-schematics/builders.json",
+              {
+                "glob": "schema.json",
+                "input": "libs/devkit/builders/ng-packagr-schematics/src/lib/build/",
+                "output": "lib/build"
+              }
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

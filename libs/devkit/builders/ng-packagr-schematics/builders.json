@@ -2,8 +2,8 @@
   "$schema": "http://json-schema.org/schema",
   "builders": {
     "build": {
-      "implementation": "./src/build/index",
-      "schema": "./src/build/schema.json",
+      "implementation": "./lib/build/index",
+      "schema": "./lib/build/schema.json",
       "description": "Build a library with ng-packagr."
     }
   }

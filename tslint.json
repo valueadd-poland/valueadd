@@ -89,6 +89,10 @@
             "onlyDependOnLibsWithTags": ["scope:shared", "scope:linking-tool"]
           },
           {
+            "sourceTag": "scope:ng-packagr-schematics",
+            "onlyDependOnLibsWithTags": ["scope:shared", "scope:ng-packagr-schematics"]
+          },
+          {
             "sourceTag": "scope:translations-finder",
             "onlyDependOnLibsWithTags": ["scope:shared", "scope:translations-finder"]
           }
