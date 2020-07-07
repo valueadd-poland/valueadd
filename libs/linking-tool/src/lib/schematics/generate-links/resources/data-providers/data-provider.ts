@@ -2,6 +2,7 @@ import { ArrowFunction, ObjectLiteralExpression, SourceFile } from 'ts-morph';
 import { GenerateLinksProperty } from '../enums/generate-links-property.enum';
 import { RouteDeclaration } from '../interfaces/route-declaration.interface';
 import { TypescriptApiUtil } from '../utils/typescript-api.util';
+import { AngularUtil } from '../utils/angular.util';
 
 export class DataProvider {
   static getRouteDeclarations(source: SourceFile): RouteDeclaration[] {
@@ -64,10 +65,9 @@ export class DataProvider {
 
     if (TypescriptApiUtil.isArrowFunction(loadChildrenAssignment)) {
       // lazy loaded module import from v8 and Ivy
-      lazyLoadedModulePath = TypescriptApiUtil.getImportValueFromArrowFunction(
+      lazyLoadedModuleName = AngularUtil.getLazyLoadedModuleName(
         loadChildrenAssignment.getInitializer() as ArrowFunction
-      ).split('/');
-      lazyLoadedModuleName = lazyLoadedModulePath[lazyLoadedModulePath.length - 1];
+      );
     }
 
     if (!lazyLoadedModuleName) {

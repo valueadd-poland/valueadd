@@ -1,4 +1,4 @@
-import { Project, SourceFile } from 'ts-morph';
+import { Project } from 'ts-morph';
 import { DataProvider } from '../resources/data-providers/data-provider';
 import { LinkTypeMap } from '../resources/interfaces/link-type-map.interface';
 import { RouteDeclaration } from '../resources/interfaces/route-declaration.interface';
@@ -47,12 +47,11 @@ export class GenerateLinksService {
       }
 
       if (route.loadChildren) {
-        this.resolveLink(
-          pathFromRoot.concat(path),
-          DataProvider.getRouteDeclarations(
-            this.project.getSourceFile(route.loadChildren) as SourceFile
-          )
-        );
+        const moduleFile = this.project.getSourceFile(route.loadChildren);
+        if (!moduleFile) {
+          throw Error(`Can't find module ${route.loadChildren}`);
+        }
+        this.resolveLink(pathFromRoot.concat(path), DataProvider.getRouteDeclarations(moduleFile));
       }
     });
   }
