@@ -3,7 +3,6 @@ import {
   ArrowFunction,
   CallExpression,
   Expression,
-  Node,
   ObjectLiteralExpression,
   PropertyAccessExpression,
   PropertyAssignment,
@@ -24,17 +23,6 @@ export class TypescriptApiUtil {
     return TypescriptApiUtil.getArrayLiteralFromPropertyAssignment(
       propertyAssignment
     ).getElements();
-  }
-
-  static getImportValueFromArrowFunction(arrowFunction: ArrowFunction): string {
-    const callExpression = TypescriptApiUtil.getCallExpressionFromArrowFunction(arrowFunction);
-    const importThen = TypescriptApiUtil.getPropertyAccessExpressionFromCallExpression(
-      callExpression
-    );
-    const importCall = TypescriptApiUtil.getCallExpressionFromPropertyAccessExpression(importThen);
-    return TypescriptApiUtil.getCallExpressionArguments(importCall).length
-      ? TypescriptApiUtil.getCallExpressionArguments(importCall)[0].getText()
-      : '';
   }
 
   static getObjectLiteralExpression(
@@ -121,23 +109,7 @@ export class TypescriptApiUtil {
     return propertyAssignment.getInitializer() as ArrayLiteralExpression;
   }
 
-  private static getCallExpressionArguments(callExpression: CallExpression): Node[] {
-    return callExpression.getArguments();
-  }
-
-  private static getCallExpressionFromArrowFunction(arrowFunction: ArrowFunction): CallExpression {
+  static getCallExpressionFromArrowFunction(arrowFunction: ArrowFunction): CallExpression {
     return arrowFunction.getBody() as CallExpression;
-  }
-
-  private static getCallExpressionFromPropertyAccessExpression(
-    propertyAccessExpression: PropertyAccessExpression
-  ): CallExpression {
-    return propertyAccessExpression.getExpression() as CallExpression;
-  }
-
-  private static getPropertyAccessExpressionFromCallExpression(
-    callExpression: CallExpression
-  ): PropertyAccessExpression {
-    return callExpression.getExpression() as PropertyAccessExpression;
   }
 }
