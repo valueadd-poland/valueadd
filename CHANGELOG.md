@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.0](https://github.com/valueadd-poland/valueadd/compare/v2.6.0...v2.7.0) (2020-07-11)
+
+
+### Features
+
+* **devkit:** add builder as a library ([c199b5b](https://github.com/valueadd-poland/valueadd/commit/c199b5beee875624f9017191e4bd8ade8f0cf030))
+* **devkit:** add devkit library ([780598c](https://github.com/valueadd-poland/valueadd/commit/780598c469f490735a2e1c2abcb9e30fb91f608b))
+
+
+### Bug Fixes
+
+* **linking-tool:** get module name from dynamic import ([d9dfae2](https://github.com/valueadd-poland/valueadd/commit/d9dfae2d289b6995c2d5772e694855c44878f903))
+* **validation-messages:** change component tag within README ([37d770e](https://github.com/valueadd-poland/valueadd/commit/37d770e516871a8ee18a0c0465eb6ae6a973322c))
+
 ### [2.6.1](https://github.com/valueadd-poland/valueadd/compare/v2.6.0...v2.6.1) (2020-03-26)
 
 
