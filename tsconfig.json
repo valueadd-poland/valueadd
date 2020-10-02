@@ -25,7 +25,8 @@
       "@valueadd/translations-finder": ["libs/translations-finder/src/index.ts"],
       "@valueadd/devkit/builders/ng-packagr-schematics": [
         "libs/devkit/builders/ng-packagr-schematics/src/index.ts"
-      ]
+      ],
+      "@valueadd/selection-model": ["libs/selection-model/src/index.ts"]
     },
     "rootDir": "."
   },

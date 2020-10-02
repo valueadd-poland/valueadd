@@ -296,6 +296,37 @@
           }
         }
       }
+    },
+    "selection-model": {
+      "root": "libs/selection-model",
+      "sourceRoot": "libs/selection-model/src",
+      "projectType": "library",
+      "prefix": "valueadd",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/selection-model/tsconfig.lib.json",
+              "libs/selection-model/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/selection-model/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/selection-model/jest.config.js",
+            "tsConfig": "libs/selection-model/tsconfig.spec.json",
+            "setupFile": "libs/selection-model/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

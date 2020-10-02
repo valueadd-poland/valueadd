@@ -31,6 +31,9 @@
     },
     "devkit-builders-ng-packagr-schematics": {
       "tags": ["scope:ng-packagr-schematics, type:feature, platform:desktop"]
+    },
+    "selection-model": {
+      "tags": ["scope:selection-model", "type:feature", "platform:desktop"]
     }
   }
 }
