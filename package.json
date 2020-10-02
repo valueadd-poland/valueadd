@@ -93,6 +93,7 @@
     "tslint": "~5.18.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-sonarts": "^1.9.0",
-    "typescript": "~3.5.3"
+    "typescript": "~3.5.3",
+    "jest-preset-angular": "7.0.0"
   }
 }
