@@ -49,7 +49,7 @@
     "@schematics/angular": "^7.3.8",
     "core-js": "^2.6.9",
     "glob": "^7.1.6",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "rxjs": "^6.5.2",
     "ts-morph": "^4.0.1",
     "zone.js": "~0.10.1"
